@@ -9,4 +9,3 @@ if(validBumpTypes.indexOf(bump) === -1) {
   throw new Error('Unrecognized semver bump "' + bump + '".');
 }
 exports.bump = bump;
-

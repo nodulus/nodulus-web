@@ -1,5 +1,5 @@
 var path = require('path'),
-  root = 'src/';
+    root = 'src/';
 
 // Project paths
 // -------------

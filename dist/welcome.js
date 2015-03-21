@@ -1,11 +1,12 @@
 System.register([], function (_export) {
-  "use strict";
+  var _createClass, _classCallCheck, Welcome, UpperValueConverter;
 
-  var _prototypeProperties, _classCallCheck, Welcome, UpperValueConverter;
   return {
     setters: [],
     execute: function () {
-      _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+      "use strict";
+
+      _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
       _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
@@ -18,19 +19,16 @@ System.register([], function (_export) {
           this.lastName = "Doe";
         }
 
-        _prototypeProperties(Welcome, null, {
+        _createClass(Welcome, {
           fullName: {
             get: function () {
               return "" + this.firstName + " " + this.lastName;
-            },
-            configurable: true
+            }
           },
           welcome: {
             value: function welcome() {
               alert("Welcome, " + this.fullName + "!");
-            },
-            writable: true,
-            configurable: true
+            }
           }
         });
 
@@ -41,13 +39,11 @@ System.register([], function (_export) {
           _classCallCheck(this, UpperValueConverter);
         }
 
-        _prototypeProperties(UpperValueConverter, null, {
+        _createClass(UpperValueConverter, {
           toView: {
             value: function toView(value) {
               return value && value.toUpperCase();
-            },
-            writable: true,
-            configurable: true
+            }
           }
         });
 
@@ -56,4 +52,4 @@ System.register([], function (_export) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlbGNvbWUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OzZDQUFhLE9BQU8sRUFnQlAsbUJBQW1COzs7Ozs7OztBQWhCbkIsYUFBTztBQUNQLGlCQURBLE9BQU87Z0NBQVAsT0FBTzs7QUFFaEIsY0FBSSxDQUFDLE9BQU8sR0FBRywrQ0FBK0MsQ0FBQztBQUMvRCxjQUFJLENBQUMsU0FBUyxHQUFHLE1BQU0sQ0FBQztBQUN4QixjQUFJLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQztTQUN2Qjs7NkJBTFUsT0FBTztBQU9kLGtCQUFRO2lCQUFBLFlBQUc7QUFDYiwwQkFBVSxJQUFJLENBQUMsU0FBUyxTQUFJLElBQUksQ0FBQyxRQUFRLENBQUc7YUFDN0M7OztBQUVELGlCQUFPO21CQUFBLG1CQUFHO0FBQ1IsbUJBQUssZUFBYSxJQUFJLENBQUMsUUFBUSxPQUFJLENBQUM7YUFDckM7Ozs7OztlQWJVLE9BQU87O0FBZ0JQLHlCQUFtQjtpQkFBbkIsbUJBQW1CO2dDQUFuQixtQkFBbUI7Ozs2QkFBbkIsbUJBQW1CO0FBQzlCLGdCQUFNO21CQUFBLGdCQUFDLEtBQUssRUFBQztBQUNYLHFCQUFPLEtBQUssSUFBSSxLQUFLLENBQUMsV0FBVyxFQUFFLENBQUM7YUFDckM7Ozs7OztlQUhVLG1CQUFtQiIsImZpbGUiOiJ3ZWxjb21lLmpzIiwic291cmNlUm9vdCI6Ii9zcmMvIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlbGNvbWUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtxQ0FBYSxPQUFPLEVBZ0JQLG1CQUFtQjs7Ozs7Ozs7Ozs7QUFoQm5CLGFBQU87QUFDUCxpQkFEQSxPQUFPLEdBQ0o7Z0NBREgsT0FBTzs7QUFFaEIsY0FBSSxDQUFDLE9BQU8sR0FBRywrQ0FBK0MsQ0FBQztBQUMvRCxjQUFJLENBQUMsU0FBUyxHQUFHLE1BQU0sQ0FBQztBQUN4QixjQUFJLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQztTQUN2Qjs7cUJBTFUsT0FBTztBQU9kLGtCQUFRO2lCQUFBLFlBQUc7QUFDYiwwQkFBVSxJQUFJLENBQUMsU0FBUyxTQUFJLElBQUksQ0FBQyxRQUFRLENBQUc7YUFDN0M7O0FBRUQsaUJBQU87bUJBQUEsbUJBQUc7QUFDUixtQkFBSyxlQUFhLElBQUksQ0FBQyxRQUFRLE9BQUksQ0FBQzthQUNyQzs7OztlQWJVLE9BQU87O0FBZ0JQLHlCQUFtQjtpQkFBbkIsbUJBQW1CO2dDQUFuQixtQkFBbUI7OztxQkFBbkIsbUJBQW1CO0FBQzlCLGdCQUFNO21CQUFBLGdCQUFDLEtBQUssRUFBQztBQUNYLHFCQUFPLEtBQUssSUFBSSxLQUFLLENBQUMsV0FBVyxFQUFFLENBQUM7YUFDckM7Ozs7ZUFIVSxtQkFBbUIiLCJmaWxlIjoid2VsY29tZS5qcyIsInNvdXJjZVJvb3QiOiIvc3JjLyJ9

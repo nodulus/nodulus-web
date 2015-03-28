@@ -1,22 +1,25 @@
 var path = require('path'),
-    root = 'src/';
+    root = '.';
 
 // Project paths
 // -------------
 
 exports.paths = {
+  base: path.resolve(root),
   root: root,
-  dest: 'dist/',
-  docs:'./docs',
+  dest: root + '/dist',
+  docs: root + '/docs',
 
-  src: root + '**/*.js',
-  templates: root + '**/*.html',
-  styles: root + '**/*.css'
+  src: root + '/src/**/*.js',
+  templates: root + '/src/**/*.html',
+  styles: root + '/src/**/*.{scss,sass}',
+  modules: [ root + '/node_modules', root + '/jspm_packages' ]
 };
 
 
 // Build options
 // -------------
+
 exports.opts = {};
 
 // 6to5

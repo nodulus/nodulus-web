@@ -3,8 +3,8 @@ System.config({
   "paths": {
     "*": "*.js",
     "bahn-commander/*": "*.js",
-    "github:*": "../jspm_packages/github/*.js",
-    "npm:*": "../jspm_packages/npm/*.js"
+    "github:*": "jspm_packages/github/*.js",
+    "npm:*": "jspm_packages/npm/*.js"
   },
   "baseUrl": ""
 });

@@ -1,6 +1,14 @@
 @import "../jspm_packages/github/ericam/susy@2.2.2/sass/susy";
 @import "../jspm_packages/github/at-import/breakpoint@2.5.0/stylesheets/breakpoint";
 
+// Requirements
+// ============
+
+$susy: (
+  columns: 12,
+  gutters: 1/4,
+);
+
 body {
   margin: 0;
 }

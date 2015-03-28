@@ -14,12 +14,12 @@ var compilerOptions = config.opts.to5;
 // plumber prevents 'pipe breaking' caused by errors from other gulp plugins:
 // see: https://www.npmjs.com/package/gulp-plumber
 gulp.task('build-system', function () {
-  return gulp.src(config.paths.src)
+  return gulp.src(config.paths.scripts)
     .pipe(plumber())
     .pipe(changed(config.paths.dest, {extension: '.js'}))
     .pipe(sourcemaps.init())
     .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
-    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.root }))
+    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
     .pipe(gulp.dest(config.paths.dest));
 });
 
@@ -36,7 +36,7 @@ gulp.task('build-styles', function () {
     .pipe(changed(config.paths.dest, {extension: '.css'}))
     .pipe(sourcemaps.init())
     .pipe(sass({errLogToConsole: true}))
-    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.root }))
+    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
     .pipe(gulp.dest(config.paths.dest));
 });
 

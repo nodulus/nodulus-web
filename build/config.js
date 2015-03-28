@@ -7,11 +7,13 @@ var path = require('path'),
 exports.paths = {
   base: path.resolve(root),
   root: root,
+  build: root + '/build',
   dest: root + '/dist',
   docs: root + '/docs',
 
-  src: root + '/src/**/*.js',
-  templates: root + '/src/**/*.html',
+  src: root + '/src',
+  scripts: root + '/src/**/*.js',
+  templates: root + '/src/**/*.{jade,html}',
   styles: root + '/src/**/*.{scss,sass}',
   modules: [ root + '/node_modules', root + '/jspm_packages' ]
 };

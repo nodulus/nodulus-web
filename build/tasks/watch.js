@@ -7,12 +7,19 @@ function reportChange(event){
   console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 }
 
-// this task wil watch for changes
-// to js, html, and css files and call the
-// reportChange method. Also, by depending on the
-// serve task, it will instantiate a browserSync session
+// this task watches for changes to gulp, scripts, templates, and stylesheets.
+// tt runs the a gulp task and then call the reportChange method. By depending
+// the serve task, it will also start a browserSync session
 gulp.task('watch', ['serve'], function() {
-  gulp.watch(config.paths.src, ['build-system', browserSync.reload]).on('change', reportChange);
+  // watch for changes to project config and gulp tasks
+  gulp.watch([
+    config.paths.root + '/Gulpfile.js',
+    config.paths.root + '/build/**/*.js'
+  ], ['build', browserSync.reload]).on('change', reportChange);
+  // watch for changes to scripts
+  gulp.watch(config.paths.scripts, ['build-system', browserSync.reload]).on('change', reportChange);
+  // watch for changes to templates
   gulp.watch(config.paths.templates, ['build-templates', browserSync.reload]).on('change', reportChange);
+  // watch for changes to stylesheets
   gulp.watch(config.paths.styles, ['build-styles', browserSync.reload]).on('change', reportChange);
 });

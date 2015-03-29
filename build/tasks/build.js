@@ -35,7 +35,10 @@ gulp.task('build-styles', function () {
   return gulp.src(config.paths.styles)
     .pipe(changed(config.paths.dest, {extension: '.css'}))
     .pipe(sourcemaps.init())
-    .pipe(sass({errLogToConsole: true}))
+    .pipe(sass({
+      includePaths: [config.paths.src].concat(config.paths.modules),
+      errLogToConsole: true
+    }))
     .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
     .pipe(gulp.dest(config.paths.dest));
 });

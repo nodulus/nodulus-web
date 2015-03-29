@@ -1,0 +1,31 @@
+@function app-get( $args... ) {
+  $map: $app;
+  $idx: 1;
+
+  @if(type-of(nth($args, 1)) == map) {
+    $map: nth($args, 1);
+    $idx: $idx + 1;
+  }
+
+  $key: nth($args, $idx);
+
+  @if(map-has-key($map, $key)) {
+    $value: map-get($map, $key);
+
+    @if(length($args) <= $idx) {
+      @return $value;
+    }
+
+    @if(type-of($value) == map) {
+      $nargs: ($value);
+
+      @for $i from $idx + 1 through length($args) {
+        $nargs: append($nargs, nth($args, $i));
+      }
+
+      @return app-get( $nargs... );
+    }
+  }
+
+  @return null;
+}

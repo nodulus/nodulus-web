@@ -7,7 +7,6 @@ var path = require('path'),
 exports.paths = {
   base: path.resolve(root),
   root: root,
-  build: root + '/build',
   dest: root + '/dist',
   docs: root + '/docs',
 

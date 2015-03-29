@@ -1,0 +1,26 @@
+@import "jspm_packages/github/ericam/susy@2.2.2/sass/susy";
+@import "jspm_packages/github/at-import/breakpoint@2.5.0/stylesheets/breakpoint";
+
+@import "./app";
+
+// Susy
+// see: http://susy.readthedocs.org/en/latest/settings/
+// ====
+
+$susy: (
+  output: isolate,
+  columns: 12,
+  gutters: (1/4),
+  use-custom: (
+    breakpoint: true
+  )
+);
+
+// mixin: set a global layout
+// @include layout(12 1/4 inside-static);
+
+$app: (
+  off-canvas: (
+    width: 260px
+  )
+);

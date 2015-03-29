@@ -1,5 +1,6 @@
 import {Router} from 'aurelia-router';
-import bootstrap from 'bootstrap';
+
+// import ViewStyleCustomElement from '../behaviors/view-style/view-style';
 
 export class App {
   static inject() { return [Router]; }

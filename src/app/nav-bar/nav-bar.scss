@@ -1,0 +1,11 @@
+@import "settings";
+
+nav.nav-bar {
+  @include span(12 of 12);
+
+  background-color: #666;
+
+  .brand {
+    @include span(2 of 12);
+  }
+}

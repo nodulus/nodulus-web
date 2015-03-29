@@ -1,9 +1,15 @@
 <template>
   <import from='./nav-bar/nav-bar'></import>
 
-  <nav-bar router.bind="router"></nav-bar>
+  <div class="off-canvas">
+    
+  </div>
+  
+  <div class="layout">
+    <nav-bar router.bind="router"></nav-bar>
 
-  <div class="page-host">
-    <router-view></router-view>
+    <div class="page-host">
+      <router-view></router-view>
+    </div>
   </div>
 </template>

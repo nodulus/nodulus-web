@@ -14,7 +14,8 @@ gulp.task('watch', ['serve'], function() {
   // watch for changes to project config and gulp tasks
   gulp.watch([
     config.paths.root + '/Gulpfile.js',
-    config.paths.root + '/build/**/*.js'
+    config.paths.root + '/build/**/*.js',
+    config.paths.src + '/_settings.scss',
   ], ['build', browserSync.reload]).on('change', reportChange);
   // watch for changes to scripts
   gulp.watch(config.paths.scripts, ['build-system', browserSync.reload]).on('change', reportChange);

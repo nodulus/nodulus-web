@@ -1,11 +1,40 @@
 @import "settings";
+@import "icons";
 
-nav.nav-bar {
-  @include span(12 of 12);
+nav-bar {
+  display: block;
 
-  background-color: #666;
+  nav {
+    @include container;
 
-  .brand {
-    @include span(2 of 12);
+    display: block;
+    background-color: #eee;
+
+    .nav-menu {
+      @include span(1 of 12);
+
+      .menu-toggle {
+        @include icon-button(1.5em);
+      }
+    }
+
+    .nav-groups {
+      @include span(11 of 12 at 1);
+
+      ul {
+        margin: 1em;
+        padding: 0;
+
+        li {
+          display: inline-block;
+          padding: 0;
+          list-style: none;
+
+          a {
+            padding: 0.5em;
+          }
+        }
+      }
+    }
   }
 }

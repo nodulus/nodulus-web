@@ -2,18 +2,17 @@
 
 <template>
   <nav class="nav-bar" role="navigation">
-    <div class="brand">
-      <a href="/">${router.title}</a>
+    <div class="nav-menu">
+      <a class="menu-toggle icon--burger-menu ${open ? 'open' : 'closed'}" click.delegate="toggle()"></a>
     </div>
-
-    <div class="nav-items">
-      <ul>
-        <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+    <div class="nav-groups">
+      <ul class="nav-group routes">
+        <li class="nav-item" repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
           <a href.bind="row.href">${row.title}</a>
         </li>
       </ul>
 
-      <ul class="indicators">
+      <ul class="nav-group indicators">
         <li class="activity" if.bind="router.isNavigating">
           <i class="spinner"></i>
         </li>

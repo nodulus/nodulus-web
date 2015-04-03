@@ -1,0 +1,63 @@
+$ionicons-font-path: app-get($icons, font-path);
+$ionicons-font-family: app-get($icons, font-family);
+$ionicons-version: app-get($icons, version);
+
+
+@font-face {
+ font-family: $ionicons-font-family;
+ src:url("#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}");
+ src:url("#{$ionicons-font-path}/ionicons.eot?v=#{$ionicons-version}#iefix") format("embedded-opentype"),
+  url("#{$ionicons-font-path}/ionicons.ttf?v=#{$ionicons-version}") format("truetype"),
+  url("#{$ionicons-font-path}/ionicons.woff?v=#{$ionicons-version}") format("woff"),
+  url("#{$ionicons-font-path}/ionicons.svg?v=#{$ionicons-version}#Ionicons") format("svg");
+ font-weight: normal;
+ font-style: normal;
+}
+
+.icon,
+%icon {
+  display: inline-block;
+  position: relative;
+  font-family: $ionicons-font-family !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    
+  &:before {
+    content: ' ';
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 16px;
+    min-width: 16px;
+    padding-right: 0.25em;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+
+%icon-button {
+  background-color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(0,0,0, 0.15);
+  border-radius: 3px;
+
+  &:before {
+    padding: 0.25em;
+  }
+}
+
+@mixin icon-button( $size ) {
+  @extend %icon-button;
+  
+  font-size: $size;
+  height: $size;
+  width: $size;
+}

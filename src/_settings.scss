@@ -1,5 +1,6 @@
 @import "jspm_packages/github/ericam/susy@2.2.2/sass/susy";
 @import "jspm_packages/github/at-import/breakpoint@2.5.0/stylesheets/breakpoint";
+@import "jspm_packages/github/matthieua/sass-css3-mixins@master/css3-mixins";
 
 @import "./app";
 
@@ -20,7 +21,26 @@ $susy: (
 // @include layout(12 1/4 inside-static);
 
 $app: (
-  off-canvas: (
-    width: 260px
+  menu: (
+    width: 260px,
+  ),
+  nav-bar: (
+    height: 2em,
+  )
+);
+
+
+// Icons
+// =====
+
+$icons: (
+  font-path: "jspm_packages/github/driftyco/ionicons@2.0.1/fonts",
+  font-family: "Ionicons",
+  version: "2.0.1",
+  prefix: icon-,
+
+  glyphs: (
+    spinner: "\f29d",
+    burger-menu: "\f20e",
   )
 );

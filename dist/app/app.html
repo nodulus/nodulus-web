@@ -1,15 +1,19 @@
+<link rel="stylesheet" type="text/css" href="app.css"/>
+
 <template>
   <import from='./nav-bar/nav-bar'></import>
 
-  <div class="off-canvas">
-    
-  </div>
-  
-  <div class="layout">
-    <nav-bar router.bind="router"></nav-bar>
+  <div class="viewport">
+    <div class="app">
+      <div class="main">
+        <nav-bar router.bind="router"></nav-bar>
 
-    <div class="page-host">
-      <router-view></router-view>
+        <div class="page-host">
+          <router-view></router-view>
+        </div>
+      </div>
+
+      <div class="menu">derp</div>
     </div>
   </div>
 </template>

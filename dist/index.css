@@ -1,3 +1,111 @@
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+  Mixins available:
+    -   css3-prefix             - arguments: Property, Value
+    -   background-gradient     - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-horizontal   - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-radial       - arguments: Start Color: #FFFFFF, Start position: 0%, End Color: #000000, End position: 100%
+    -   background-size         - arguments: Width: 100%, Height: 100%
+    -   background-opacity      - arguments: Color: #000, Opacity: .85
+    -   border-radius           - arguments: Radius: 5px
+    -   border-radius-separate  - arguments: Top Left: 5px, Top Right: 5px, Bottom Left: 5px, Bottom Right: 5px
+    -   box                     - arguments: Orientation: horizontal, Pack: center, Align: center
+    -   box-rgba                - arguments: R: 60, G: 3, B: 12, Opacity: 0.23, Color: #3C3C3C
+    -   box-shadow              - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   box-sizing              - arguments: Type: border-box
+    -   columns                 - arguments: Count: 3, Gap: 10
+    -   double-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Radius: 0
+    -   flex                    - arguments: Value: 1
+    -   flip                    - arguments: ScaleX: -1
+    -   font-face               - arguments: Font Family: myFont, Eot File Src: myFont.eot, Woff File Src: myFont.woff, Ttf File Src: myFont.ttf
+    -   opacity                 - arguments: Opacity: 0.5
+    -   outline radius          - arguments: Radius: 5px
+    -   resize                  - arguments: Direction: both
+    -   rotate                  - arguments: Degree: 0, M11: 0, M12: 0, M21: 0, M22: 0
+    CSS Matrix Rotation Calculator http://www.boogdesign.com/examples/transforms/matrix-calculator.html
+    -   text-shadow             - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   transform               - arguments: Parameters: null
+    -   transform-style         - arguments: Style: preserve-3d
+    -   transition              - Default arguments: What: all, Length: 1s, Easing: ease-in-out
+    -                            - Examples: @include transition (all 2s ease-in-out);
+    -                                        @include transition (opacity 1s ease-in 2s, width 2s ease-out);
+    -   triple-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Color Three: #000000, Radius: 0
+    -   keyframes               - arguments: Animation name
+                                - content:   Animation css
+    -   animation               - arguments: name duration timing-function delay iteration-count direction fill-mode play-state
+                                             (http://www.w3schools.com/cssref/css3_pr_animation.asp)
+
+------------------------------------------------------------- */
+/* ADDS A BROWSER PREFIX TO THE PROPERTY */
+/* BACKGROUND GRADIENT */
+/* BACKGROUND HORIZONTAL */
+/* BACKGROUND RADIAL */
+/* BACKGROUND SIZE */
+/* BACKGROUND COLOR OPACITY */
+/* BORDER RADIUS */
+/* BOX */
+/* BOX RGBA */
+/* BOX SHADOW */
+/* BOX SIZING */
+/* COLUMNS */
+/* DOUBLE BORDERS */
+/* FLEX */
+/* FLIP */
+/* FONT FACE */
+/* OPACITY */
+/* OUTLINE RADIUS */
+/* RESIZE */
+/* ROTATE*/
+/* TEXT SHADOW */
+/* TRANSFORM  */
+/* TRANSFORM STYLE */
+/* TRANSITION */
+/* TRIPLE BORDERS */
+/* KEYFRAMES */
+/* ANIMATION */
+@font-face {
+  font-family: "Ionicons";
+  src: url("jspm_packages/github/driftyco/ionicons@2.0.1/fonts/ionicons.eot?v=2.0.1");
+  src: url("jspm_packages/github/driftyco/ionicons@2.0.1/fonts/ionicons.eot?v=2.0.1#iefix") format("embedded-opentype"), url("jspm_packages/github/driftyco/ionicons@2.0.1/fonts/ionicons.ttf?v=2.0.1") format("truetype"), url("jspm_packages/github/driftyco/ionicons@2.0.1/fonts/ionicons.woff?v=2.0.1") format("woff"), url("jspm_packages/github/driftyco/ionicons@2.0.1/fonts/ionicons.svg?v=2.0.1#Ionicons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.icon, .icon--spinner, .icon--burger-menu {
+  display: inline-block;
+  position: relative;
+  font-family: "Ionicons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+  .icon:before, .icon--spinner:before, .icon--burger-menu:before {
+    content: ' ';
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 16px;
+    min-width: 16px;
+    padding-right: 0.25em;
+    text-align: center;
+    vertical-align: middle; }
+
 html {
   margin: 0;
   padding: 0; }
@@ -6,5 +114,60 @@ body {
   margin: 0;
   padding: 0; }
 
+.hold-up {
+  width: 100%;
+  float: left;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+  margin: 10% 0 0 0;
+  box-sizing: border-box; }
+  .hold-up .message {
+    color: #333;
+    font-size: 72px;
+    line-height: 72px;
+    text-shadow: rgba(0, 0, 0, 0.25) 0 0 15px;
+    text-transform: uppercase;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .hold-up .spinner {
+    margin: 6em auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+    border-left: 1.1em solid #ffffff;
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+    @-webkit-keyframes load8 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg); }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBS0E7RUFDRSxBQUFRO0VBQ1IsQUFBUzs7QUFHWDtFQUNFLEFBQVE7RUFDUixBQUFTIiwiZmlsZSI6ImluZGV4LmNzcyIsInNvdXJjZVJvb3QiOiIvLi9zcmMifQ== */
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); } }
+
+    @keyframes load8 {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg); }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); } }
+ }
+    .hold-up .spinner, .hold-up .spinner:after {
+      border-radius: 50%;
+      width: 10em;
+      height: 10em; }
+
+.icon--spinner:before {
+  content: "\f29d"; }
+
+.icon--burger-menu:before {
+  content: "\f20e"; }
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIl9pY29ucy5zY3NzIiwiaW5kZXguc2NzcyIsIi4uL2pzcG1fcGFja2FnZXMvZ2l0aHViL2VyaWNhbS9zdXN5QDIuMi4yL3Nhc3Mvc3VzeS9sYW5ndWFnZS9zdXN5L19zcGFuLnNjc3MiLCIuLi9qc3BtX3BhY2thZ2VzL2dpdGh1Yi9lcmljYW0vc3VzeUAyLjIuMi9zYXNzL3N1c3kvb3V0cHV0L3N1cHBvcnQvX3JlbS5zY3NzIiwiLi4vanNwbV9wYWNrYWdlcy9naXRodWIvZXJpY2FtL3N1c3lAMi4yLjIvc2Fzcy9zdXN5L291dHB1dC9mbG9hdC9fc3Bhbi5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7RUFDdUIsQUFLdEI7RUFDQSxBQUFJO0VBQ0osQUFBc0c7RUFJdEcsQUFBYTtFQUNiLEFBQVk7O0FBR2IsQUFBYyxBQUFnQjtFQUU1QixBQUFTO0VBQ1QsQUFBVTtFQUNWLEFBQWE7RUFDYixBQUFZO0VBQ1osQUFBYTtFQUNiLEFBQWM7RUFDZCxBQUFnQjtFQUNoQixBQUFPO0VBQ1AsQUFBYTtFQUNiLEFBQXdCO0VBQ3hCLEFBQXlCO0VBRTNCLEFBQUssQUFBdUIsQUFBYyxBQUFTLEFBQWtCO0lBQ2pFLEFBQVM7SUFDVCxBQUFTO0lBQ1QsQUFBVTtJQUNWLEFBQUs7SUFDTCxBQUFRO0lBQ1IsQUFBTTtJQUNOLEFBQU87SUFDUCxBQUFZO0lBQ1osQUFBVztJQUNYLEFBQWU7SUFDZixBQUFZO0lBQ1osQUFBZ0I7O0FDcENwQjtFQUNFLEFBQVE7RUFDUixBQUFTOztBQUdYO0VBQ0UsQUFBUTtFQUNSLEFBQVM7O0FBR1g7RUNvRFUsQUNqRE47RUNPc0MsQURQdEM7RUQrRW9CLEFDL0VwQjtFRGtGbUIsQUNsRm5CO0VGQUYsQUFBWTtFQUNaLEFBQVE7RUFDUixBQUFZO0VBRWQsQUFBUztJQUNMLEFBQU87SUFDUCxBQUFXO0lBQ1gsQUFBYTtJQUNiLEFBQStCO0lBQy9CLEFBQWdCO0lBQ2hCLEFBQWE7RUFHakIsQUFBUztJQUNMLEFBQVE7SUFDUixBQUFXO0lBQ1gsQUFBVTtJQUNWLEFBQWE7SUFDYixBQUFZO0lBQ1osQUFBYztJQUNkLEFBQWU7SUFDZixBQUFhO0lBQ2IsQUFBbUI7SUFDbkIsQUFBVzt1QkFRUTtNQUN2QjtRQUNRLEFBQW1CO1FBQ25CLEFBQVc7O01BRW5CO1FBQ1EsQUFBbUI7UUFDbkIsQUFBVzs7ZUFHSjtNQUNmO1FBQ1EsQUFBbUI7UUFDbkIsQUFBVzs7TUFFbkI7UUFDUSxBQUFtQjtRQUNuQixBQUFXOztJQXZCbkIsQUFBUyxBQUFVLEFBQVMsQUFBUTtNQUM5QixBQUFlO01BQ2YsQUFBTztNQUNQLEFBQVE7O0FBa0NkLEFBQWM7RUFDUixBQUFTOztBQURmLEFBQWtCO0VBQ1osQUFBUyIsImZpbGUiOiJpbmRleC5jc3MiLCJzb3VyY2VSb290IjoiLy4vc3JjIn0= */

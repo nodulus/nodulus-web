@@ -15,9 +15,17 @@ System.register(["aurelia-framework"], function (_export) {
       NavBar = _export("NavBar", (function () {
         function NavBar() {
           _classCallCheck(this, NavBar);
+
+          this.open = false;
         }
 
-        _createClass(NavBar, null, {
+        _createClass(NavBar, {
+          toggle: {
+            value: function toggle(open) {
+              this.open = open || !this.open;
+            }
+          }
+        }, {
           metadata: {
             value: function metadata() {
               return Behavior.withProperty("router");
@@ -30,4 +38,4 @@ System.register(["aurelia-framework"], function (_export) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9uYXYtYmFyL25hdi1iYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLFFBQVEsaUNBRUgsTUFBTTs7OztBQUZYLGNBQVEscUJBQVIsUUFBUTs7Ozs7Ozs7O0FBRUgsWUFBTTtpQkFBTixNQUFNO2dDQUFOLE1BQU07OztxQkFBTixNQUFNO0FBQ1Ysa0JBQVE7bUJBQUEsb0JBQUU7QUFBRSxxQkFBTyxRQUFRLENBQUMsWUFBWSxDQUFDLFFBQVEsQ0FBQyxDQUFDO2FBQUU7Ozs7ZUFEakQsTUFBTSIsImZpbGUiOiJhcHAvbmF2LWJhci9uYXYtYmFyLmpzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9uYXYtYmFyL25hdi1iYXIuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtNQUFRLFFBQVEsaUNBRUgsTUFBTTs7OztBQUZYLGNBQVEscUJBQVIsUUFBUTs7Ozs7Ozs7O0FBRUgsWUFBTTtBQU1OLGlCQU5BLE1BQU0sR0FNSDtnQ0FOSCxNQUFNOztBQU9mLGNBQUksQ0FBQyxJQUFJLEdBQUcsS0FBSyxDQUFDO1NBQ25COztxQkFSVSxNQUFNO0FBVWpCLGdCQUFNO21CQUFBLGdCQUFDLElBQUksRUFBRTtBQUNYLGtCQUFJLENBQUMsSUFBSSxHQUFHLElBQUksSUFBSSxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUM7YUFDaEM7OztBQVhNLGtCQUFRO21CQUFBLG9CQUFFO0FBQ2YscUJBQU8sUUFBUSxDQUNaLFlBQVksQ0FBQyxRQUFRLENBQUMsQ0FBQzthQUN6Qjs7OztlQUpRLE1BQU0iLCJmaWxlIjoiYXBwL25hdi1iYXIvbmF2LWJhci5qcyIsInNvdXJjZVJvb3QiOiIvLi9zcmMifQ==

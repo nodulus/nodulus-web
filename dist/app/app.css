@@ -1,50 +1,104 @@
-.bahn-commander .off-canvas {
-  position: absolute;
-  width: 260px;
-  left: -260px;
-  top: 0;
-  bottom: 0; }
-.bahn-commander .layout {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto; }
-  .bahn-commander .layout:after {
-    content: " ";
-    display: block;
-    clear: both; }
-  .bahn-commander .layout .splash {
-    width: 100%;
-    float: left;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-    margin: 10% 0 0 0;
-    box-sizing: border-box; }
-  .bahn-commander .layout .splash .message {
-    font-size: 72px;
-    line-height: 72px;
-    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
-    text-transform: uppercase;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-  .bahn-commander .layout .splash .fa-spinner {
-    text-align: center;
-    display: inline-block;
-    font-size: 72px;
-    margin-top: 50px; }
-  .bahn-commander .layout .page-host {
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+  Mixins available:
+    -   css3-prefix             - arguments: Property, Value
+    -   background-gradient     - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-horizontal   - arguments: Start Color: #3C3C3C, End Color: #999999
+    -   background-radial       - arguments: Start Color: #FFFFFF, Start position: 0%, End Color: #000000, End position: 100%
+    -   background-size         - arguments: Width: 100%, Height: 100%
+    -   background-opacity      - arguments: Color: #000, Opacity: .85
+    -   border-radius           - arguments: Radius: 5px
+    -   border-radius-separate  - arguments: Top Left: 5px, Top Right: 5px, Bottom Left: 5px, Bottom Right: 5px
+    -   box                     - arguments: Orientation: horizontal, Pack: center, Align: center
+    -   box-rgba                - arguments: R: 60, G: 3, B: 12, Opacity: 0.23, Color: #3C3C3C
+    -   box-shadow              - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   box-sizing              - arguments: Type: border-box
+    -   columns                 - arguments: Count: 3, Gap: 10
+    -   double-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Radius: 0
+    -   flex                    - arguments: Value: 1
+    -   flip                    - arguments: ScaleX: -1
+    -   font-face               - arguments: Font Family: myFont, Eot File Src: myFont.eot, Woff File Src: myFont.woff, Ttf File Src: myFont.ttf
+    -   opacity                 - arguments: Opacity: 0.5
+    -   outline radius          - arguments: Radius: 5px
+    -   resize                  - arguments: Direction: both
+    -   rotate                  - arguments: Degree: 0, M11: 0, M12: 0, M21: 0, M22: 0
+    CSS Matrix Rotation Calculator http://www.boogdesign.com/examples/transforms/matrix-calculator.html
+    -   text-shadow             - arguments: X: 2px, Y: 2px, Blur: 5px, Color: rgba(0,0,0,.4)
+    -   transform               - arguments: Parameters: null
+    -   transform-style         - arguments: Style: preserve-3d
+    -   transition              - Default arguments: What: all, Length: 1s, Easing: ease-in-out
+    -                            - Examples: @include transition (all 2s ease-in-out);
+    -                                        @include transition (opacity 1s ease-in 2s, width 2s ease-out);
+    -   triple-borders          - arguments: Color One: #3C3C3C, Color Two: #999999, Color Three: #000000, Radius: 0
+    -   keyframes               - arguments: Animation name
+                                - content:   Animation css
+    -   animation               - arguments: name duration timing-function delay iteration-count direction fill-mode play-state
+                                             (http://www.w3schools.com/cssref/css3_pr_animation.asp)
+
+------------------------------------------------------------- */
+/* ADDS A BROWSER PREFIX TO THE PROPERTY */
+/* BACKGROUND GRADIENT */
+/* BACKGROUND HORIZONTAL */
+/* BACKGROUND RADIAL */
+/* BACKGROUND SIZE */
+/* BACKGROUND COLOR OPACITY */
+/* BORDER RADIUS */
+/* BOX */
+/* BOX RGBA */
+/* BOX SHADOW */
+/* BOX SIZING */
+/* COLUMNS */
+/* DOUBLE BORDERS */
+/* FLEX */
+/* FLIP */
+/* FONT FACE */
+/* OPACITY */
+/* OUTLINE RADIUS */
+/* RESIZE */
+/* ROTATE*/
+/* TEXT SHADOW */
+/* TRANSFORM  */
+/* TRANSFORM STYLE */
+/* TRANSITION */
+/* TRIPLE BORDERS */
+/* KEYFRAMES */
+/* ANIMATION */
+.viewport .app {
+  transition: transform 0.3s ease; }
+  .viewport .app.slide {
+    transform: translate3d(260px, 0, 0); }
+  .viewport .app .menu {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 50px;
-    bottom: 0;
-    overflow-x: hidden;
-    overflow-y: auto; }
-  .bahn-commander .layout section {
-    margin: 0 20px; }
-  .bahn-commander .layout .navbar-nav li.loader {
-    margin: 12px 24px 0 6px; }
-  .bahn-commander .layout .pictureDetail {
-    max-width: 425px; }
+    width: 260px;
+    left: -260px;
+    top: 0;
+    bottom: 0; }
+  .viewport .app .main {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto; }
+    .viewport .app .main:after {
+      content: " ";
+      display: block;
+      clear: both; }
+    .viewport .app .main .page-host {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 2em;
+      bottom: 0;
+      overflow-x: hidden;
+      overflow-y: auto; }
 
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHAuc2NzcyIsIi4uL2pzcG1fcGFja2FnZXMvZ2l0aHViL2VyaWNhbS9zdXN5QDIuMi4yL3Nhc3Mvc3VzeS9sYW5ndWFnZS9zdXN5L19jb250YWluZXIuc2NzcyIsIi4uL2pzcG1fcGFja2FnZXMvZ2l0aHViL2VyaWNhbS9zdXN5QDIuMi4yL3Nhc3Mvc3VzeS9vdXRwdXQvc3VwcG9ydC9fcmVtLnNjc3MiLCIuLi9qc3BtX3BhY2thZ2VzL2dpdGh1Yi9lcmljYW0vc3VzeUAyLjIuMi9zYXNzL3N1c3kvb3V0cHV0L3NoYXJlZC9fY29udGFpbmVyLnNjc3MiLCIuLi9qc3BtX3BhY2thZ2VzL2dpdGh1Yi9lcmljYW0vc3VzeUAyLjIuMi9zYXNzL3N1c3kvb3V0cHV0L3N1cHBvcnQvX2NsZWFyZml4LnNjc3MiLCIuLi9qc3BtX3BhY2thZ2VzL2dpdGh1Yi9lcmljYW0vc3VzeUAyLjIuMi9zYXNzL3N1c3kvbGFuZ3VhZ2Uvc3VzeS9fc3Bhbi5zY3NzIiwiLi4vanNwbV9wYWNrYWdlcy9naXRodWIvZXJpY2FtL3N1c3lAMi4yLjIvc2Fzcy9zdXN5L291dHB1dC9mbG9hdC9fc3Bhbi5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBLEFBQWdCO0VBQ1osQUFBVTtFQUNWLEFBQU87RUFDUCxBQUFNO0VBQ04sQUFBSztFQUNMLEFBQVE7QUFHWixBQUFnQjtFQ0VBLEFDTVo7RUNKYSxBREliO0VDSGMsQURHZDtFRVJKLEFBQWdCLEFBQU87SUFDakIsQUFBUztJQUNULEFBQVM7SUFDVCxBQUFPO0VKQWIsQUFBZ0IsQUFBUTtJS3NEZCxBSGpETjtJSU9zQyxBSlB0QztJRytFb0IsQUgvRXBCO0lHa0ZtQixBSGxGbkI7SUZIRSxBQUFZO0lBQ1osQUFBUTtJQUNSLEFBQVk7RUFHbEIsQUFBZ0IsQUFBUSxBQUFRO0lBQzFCLEFBQVc7SUFDWCxBQUFhO0lBQ2IsQUFBOEI7SUFDOUIsQUFBZ0I7SUFDaEIsQUFBYTtFQUduQixBQUFnQixBQUFRLEFBQVE7SUFDMUIsQUFBWTtJQUNaLEFBQVM7SUFDVCxBQUFXO0lBQ1gsQUFBWTtFQUdsQixBQUFnQixBQUFRO0lBQ2xCLEFBQVU7SUFDVixBQUFNO0lBQ04sQUFBTztJQUNQLEFBQUs7SUFDTCxBQUFRO0lBQ1IsQUFBWTtJQUNaLEFBQVk7RUFHbEIsQUFBZ0IsQUFBUTtJQUNsQixBQUFRO0VBR2QsQUFBZ0IsQUFBUSxBQUFZLEFBQUU7SUFDaEMsQUFBUTtFQUdkLEFBQWdCLEFBQVE7SUFDbEIsQUFBVyIsImZpbGUiOiJhcHAvYXBwLmNzcyIsInNvdXJjZVJvb3QiOiIvLi9zcmMifQ== */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHAuc2NzcyIsIi4uL2pzcG1fcGFja2FnZXMvZ2l0aHViL2VyaWNhbS9zdXN5QDIuMi4yL3Nhc3Mvc3VzeS9sYW5ndWFnZS9zdXN5L19jb250YWluZXIuc2NzcyIsIi4uL2pzcG1fcGFja2FnZXMvZ2l0aHViL2VyaWNhbS9zdXN5QDIuMi4yL3Nhc3Mvc3VzeS9vdXRwdXQvc3VwcG9ydC9fcmVtLnNjc3MiLCIuLi9qc3BtX3BhY2thZ2VzL2dpdGh1Yi9lcmljYW0vc3VzeUAyLjIuMi9zYXNzL3N1c3kvb3V0cHV0L3NoYXJlZC9fY29udGFpbmVyLnNjc3MiLCIuLi9qc3BtX3BhY2thZ2VzL2dpdGh1Yi9lcmljYW0vc3VzeUAyLjIuMi9zYXNzL3N1c3kvb3V0cHV0L3N1cHBvcnQvX2NsZWFyZml4LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBS0EsQUFBVTtFQUNOLEFBQVk7RUFFaEIsQUFBVSxBQUFJO0lBQ1IsQUFBVztFQUdqQixBQUFVLEFBQUs7SUFDVCxBQUFVO0lBQ1YsQUFBTztJQUNQLEFBQU07SUFDTixBQUFLO0lBQ0wsQUFBUTtFQUdkLEFBQVUsQUFBSztJQ1BDLEFDTVo7SUNKYSxBREliO0lDSGMsQURHZDtJRVJKLEFBQVUsQUFBSyxBQUFLO01BQ2QsQUFBUztNQUNULEFBQVM7TUFDVCxBQUFPO0lKU2IsQUFBVSxBQUFLLEFBQU07TUFDYixBQUFVO01BQ1YsQUFBTTtNQUNOLEFBQU87TUFDUCxBQUFLO01BQ0wsQUFBUTtNQUNSLEFBQVk7TUFDWixBQUFZIiwiZmlsZSI6ImFwcC9hcHAuY3NzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9 */

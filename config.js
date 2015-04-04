@@ -2,7 +2,7 @@ System.config({
   "transpiler": "6to5",
   "paths": {
     "*": "*.js",
-    "bahn-commander/*": "*.js",
+    "bahn-commander/*": "/*.js",
     "github:*": "jspm_packages/github/*.js",
     "npm:*": "jspm_packages/npm/*.js"
   },

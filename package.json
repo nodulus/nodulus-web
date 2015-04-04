@@ -38,7 +38,7 @@
   },
   "jspm": {
     "directories": {
-      "lib": "src"
+      "lib": ""
     },
     "dependencies": {
       "aurelia-bootstrapper": "^0.9.3",

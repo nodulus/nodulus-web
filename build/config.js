@@ -13,7 +13,7 @@ exports.paths = {
   src: root + '/src',
   scripts: root + '/src/**/*.js',
   templates: root + '/src/**/*.{jade,html}',
-  styles: root + '/src/**/*.{scss,sass}',
+  styles: root + '/src/**/*.{scss,sass,css}',
   modules: [ root + '/node_modules', root + '/jspm_packages' ]
 };
 

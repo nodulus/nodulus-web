@@ -16,7 +16,7 @@ export class MQTTEventBridge {
 
     this.clientId = 'bahn_commander';
     this.prefix = 'bahn.io/commander/';
-    this.prefixRe = new RegExp('^' + this.prefix, 'i');
+    this.prefixRe = new RegExp('^(/)?' + this.prefix, 'i');
 
     this.subscriptions = {};
 
@@ -40,7 +40,7 @@ export class MQTTEventBridge {
     console.log('connecting to mqtt');
 
     try {
-      this.client.connect({
+      var connection = this.client.connect({
         onSuccess: this.onConnectSuccess.bind(this),
         onFailure: this.onConnectFailed.bind(this)
       });
@@ -71,7 +71,7 @@ export class MQTTEventBridge {
     }
 
     var mqttMessage = new Paho.MQTT.Message(message.payload);
-    mqttMessage.destinationName = this.prefix + message.topic;
+    mqttMessage.destinationName = this.resolve(message.topic);
 
     if (opts.qos) mqttMessage.qos = opts.qos;
     if (opts.retained) mqttMessage.retained = opts.retained;
@@ -81,8 +81,12 @@ export class MQTTEventBridge {
   }
 
   // subscribe to new mqtt topic (filter?)
-  subscribe(topic, opts) {
-    var dest = this.prefix + topic;
+  subscribe(topic, opts = {}) {
+    if (!topic) {
+      console.log('Invalid topic', topic);
+    }
+
+    var dest = this.resolve(topic);
 
     // TODO: (IW) add unique subscriber sig to ensure the same caller for sub/unsub
     // and allow multipls subscriptions to same topic w/ different sets of opts
@@ -93,7 +97,7 @@ export class MQTTEventBridge {
       return;
     }
 
-    console.log('subscribing to mqtt topic', dest);
+    console.log('subscribing to mqtt topic', dest, opts);
 
     if (!this.subscriptions[topic]) {
       this.subscriptions[topic] = {dest: dest, opts: opts, status: 0, subscribers: 0};
@@ -103,15 +107,19 @@ export class MQTTEventBridge {
     }
 
     opts.invocationContext = {topic: topic};
-    ops.onSuccess = this.onSubscribeSuccess.bind(this);
-    ops.onFailure = this.onSubscribeFailure.bind(this);
+    opts.onSuccess = this.onSubscribeSuccess.bind(this);
+    opts.onFailure = this.onSubscribeFailure.bind(this);
 
     // mqtt subscribe request
-    this.client.subscribe(dest, ops);
+    this.client.subscribe(dest, opts);
   }
 
-  unsubscribe(topic, opts) {
-    var dest = this.prefix + topic;
+  unsubscribe(topic, opts = {}) {
+    if (!topic) {
+      console.log('Invalid topic', topic);
+    }
+
+    var dest = this.resolve(topic);
 
     console.log('unsubscribe from topic', dest, topic, opts);
 
@@ -131,8 +139,8 @@ export class MQTTEventBridge {
     console.log('unsubscribing from empty mqtt topic', topic);
 
     opts.invocationContext = {topic: topic};
-    ops.onSuccess = this.onUnsubscribeSuccess.bind(this);
-    ops.onFailure = this.onUnsubscribeFailure.bind(this);
+    opts.onSuccess = this.onUnsubscribeSuccess.bind(this);
+    opts.onFailure = this.onUnsubscribeFailure.bind(this);
     
     // unsubscribe from mqtt topic
     this.client.unsubscribe(dest, opts);
@@ -143,17 +151,22 @@ export class MQTTEventBridge {
     this.dispose();
   }
 
+  // ------------------------------------------------------------------- Helpers
+
+  resolve(topic) {
+    return (topic.charAt(0) === '/') ? topic.slice(1) : this.prefix + topic.replace(/^\.(\/)?/, '');
+  }
+
   // ------------------------------------------------------------------ Handlers
 
   onConnectSuccess() {
     console.log('connected to mqtt');
 
-    this.client.subscribe(this.prefix + '#');
+    // listen for all messages under this.prefix
+    this.client.subscribe(this.resolve('#'));
 
-    // var message = new Paho.MQTT.Message("connected");
-    // message.destinationName = this.prefix + 'status';
-    // this.client.send(message);
-    this.publish(new MQTTMessage('status', 'connected'));
+    this.eventAggregator.publish('mqtt-event-bridge', 'connected');
+    this.publish(new MQTTMessage('/broadcast/client/' + this.clientId, 'connect'));
   }
 
   onConnectFailed() {
@@ -210,6 +223,6 @@ export class MQTTEventBridge {
   onMessageOutbound(message) {
     console.log('received app message', message);
     // publish to mqtt
-    if(message.io === 'outbound') this.publish(message);
+    this.publish(message);
   }
 }

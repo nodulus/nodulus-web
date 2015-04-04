@@ -1,10 +1,11 @@
 import {Router} from 'aurelia-router';
-import MQTTEventBridge from '../io/mqtt-event-bridge';
+import {MQTTEventBridge} from '../io/mqtt-event-bridge';
 
 // import ViewStyleCustomElement from '../behaviors/view-style/view-style';
 
 export class App {
   static inject() { return [Router, MQTTEventBridge]; }
+
   constructor(router, mqtt) {
     this.mqtt = mqtt;
     this.router = router;

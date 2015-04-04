@@ -1,4 +1,5 @@
 import {EventAggregator} from 'aurelia-event-aggregator';
+import {MQTTMessage} from 'bahn-commander/io/mqtt-message';
 import Paho from 'paho';
 
 // var MQTT_SERVER_URI = 'ws://mashtun.homebrew.lan:1884',
@@ -7,15 +8,7 @@ var MQTT_SERVER_PORT = 1884;
 
 var MQTT_CLIENT_ID = 'aurelia_bridge';
 
-export class MQTTMessage {
-  constructor(topic, payload, io = 'outbound') {
-    this.topic = topic;
-    this.payload = payload;
-    this.io = io;
-  }
-}
-
-export default class MQTTEventBridge {
+export class MQTTEventBridge {
   static inject(){ return [EventAggregator]; }
 
   constructor(eventAggregator) {
@@ -36,15 +29,16 @@ export default class MQTTEventBridge {
   connect() {
     if (!this.client) {
       console.log('creating client');
-      // this.client = new Paho.MQTT.Client(MQTT_SERVER_HOST, MQTT_SERVER_PORT, this.clientId);
+
       this.client = new Paho.MQTT.Client(MQTT_SERVER_HOST, MQTT_SERVER_PORT, this.clientId);
       // handle mqtt disconnect
       this.client.onConnectionLost = this.onConnectionLost.bind(this);
-      // handle message from mqtt
+      // handle messages from mqtt
       this.client.onMessageArrived = this.onMessageInbound.bind(this);
     }
 
-    console.log('connecting to client', this.client);
+    console.log('connecting to mqtt');
+
     try {
       this.client.connect({
         onSuccess: this.onConnectSuccess.bind(this),
@@ -63,23 +57,26 @@ export default class MQTTEventBridge {
 
     try {
       this.client.disconnect();
+      this.subscriptions = {};
     } catch (e) {
       console.log('Already disconnected', e);
     }
   }
 
   // send to mqtt
-  publish(message) {
+  publish(message, opts = {}) {
     if (message.io !== 'outbound') {
-      console.log('not publishing', message);
+      console.log('not publishing', message.io, message);
       return;
     }
 
-    console.log('publish to mqtt', message);
-
     var mqttMessage = new Paho.MQTT.Message(message.payload);
-    mqttMessage.destinationName = message.topic;
+    mqttMessage.destinationName = this.prefix + message.topic;
 
+    if (opts.qos) mqttMessage.qos = opts.qos;
+    if (opts.retained) mqttMessage.retained = opts.retained;
+
+    console.log('publish to mqtt', mqttMessage, message, opts);
     this.client.send(mqttMessage);
   }
 
@@ -88,8 +85,9 @@ export default class MQTTEventBridge {
     var dest = this.prefix + topic;
 
     // TODO: (IW) add unique subscriber sig to ensure the same caller for sub/unsub
+    // and allow multipls subscriptions to same topic w/ different sets of opts
 
-    if (this.subscriptions[topic] || this.subscriptions[topic].status !== -1) {
+    if (this.subscriptions[topic] && this.subscriptions[topic].status !== -1) {
       console.log('adding subscriber to topic', dest, topic, opts);
       ++this.subscriptions[topic].subscribers;
       return;
@@ -97,12 +95,18 @@ export default class MQTTEventBridge {
 
     console.log('subscribing to mqtt topic', dest);
 
-    this.subscriptions[topic] = {dest: dest, opts: opts, status: 0, subscribers: 0};
+    if (!this.subscriptions[topic]) {
+      this.subscriptions[topic] = {dest: dest, opts: opts, status: 0, subscribers: 0};
+    } else {
+      this.subscriptions[topic].opts = opts;
+      this.subscriptions[topic].status = 0;
+    }
 
     opts.invocationContext = {topic: topic};
     ops.onSuccess = this.onSubscribeSuccess.bind(this);
     ops.onFailure = this.onSubscribeFailure.bind(this);
 
+    // mqtt subscribe request
     this.client.subscribe(dest, ops);
   }
 
@@ -112,10 +116,14 @@ export default class MQTTEventBridge {
     console.log('unsubscribe from topic', dest, topic, opts);
 
     if (!this.subscriptions[topic] || this.subscriptions[topic].status === -1) {
-      console.log('unsubscribing from zombie topic', topic, topics);
+      if (!this.subscriptions[topic]) {
+        console.log('nothing to unsubscribe', topic);
+      }
+      console.log('unsubscribing from zombie topic', this.subscriptions[topic], topic, opts);
     }
 
     if (this.subscriptions[topic].subscribers > 1) {
+      console.log('still more subscribers', this.subscriptions[topic].subscribers, topic);
       --this.subscriptions[topic].subscribers;
       return;
     }
@@ -138,13 +146,14 @@ export default class MQTTEventBridge {
   // ------------------------------------------------------------------ Handlers
 
   onConnectSuccess() {
-    console.log('connected to mqtt', arguments);
+    console.log('connected to mqtt');
 
     this.client.subscribe(this.prefix + '#');
 
-    var message = new Paho.MQTT.Message("connected");
-    message.destinationName = this.prefix + 'status';
-    this.client.send(message);
+    // var message = new Paho.MQTT.Message("connected");
+    // message.destinationName = this.prefix + 'status';
+    // this.client.send(message);
+    this.publish(new MQTTMessage('status', 'connected'));
   }
 
   onConnectFailed() {
@@ -181,6 +190,7 @@ export default class MQTTEventBridge {
     console.log('unsubscribe failure', arguments);
   }
 
+  // mqtt -> app
   onMessageInbound(message) {
     var dest = message.destinationName,
       payload = message.payloadString,
@@ -188,17 +198,18 @@ export default class MQTTEventBridge {
 
     console.log('received client message', dest, topic, payload);
 
-    if(!Object.keys(this.subscriptions).indexOf(topic)) {
+    if(Object.keys(this.subscriptions).indexOf(topic) === -1) {
       console.log('message received on zombie topic', topic, payload, this.subscriptions);
-      return;
     }
 
     // publish to app
-    this.eventAggregator.publish(new MQTTMessage(topic, payload, 'inbound'));
+    this.eventAggregator.publish(new MQTTMessage(message, topic));
   }
 
+  // app -> mqtt
   onMessageOutbound(message) {
-    console.log('received app message', message, this);
-    if(message.io === 'outbound') this.publish(message.topic, message.payload);
+    console.log('received app message', message);
+    // publish to mqtt
+    if(message.io === 'outbound') this.publish(message);
   }
 }

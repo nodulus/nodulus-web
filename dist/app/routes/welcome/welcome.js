@@ -1,8 +1,12 @@
-System.register([], function (_export) {
-  var _createClass, _classCallCheck, Welcome, UpperValueConverter;
+System.register(["aurelia-event-aggregator", "bahn-commander/io/mqtt-message"], function (_export) {
+  var EventAggregator, MQTTMessage, _createClass, _classCallCheck, Welcome, UpperValueConverter;
 
   return {
-    setters: [],
+    setters: [function (_aureliaEventAggregator) {
+      EventAggregator = _aureliaEventAggregator.EventAggregator;
+    }, function (_bahnCommanderIoMqttMessage) {
+      MQTTMessage = _bahnCommanderIoMqttMessage.MQTTMessage;
+    }],
     execute: function () {
       "use strict";
 
@@ -11,8 +15,10 @@ System.register([], function (_export) {
       _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
       Welcome = _export("Welcome", (function () {
-        function Welcome() {
+        function Welcome(eventAggregator) {
           _classCallCheck(this, Welcome);
+
+          this.eventAggregator = eventAggregator;
 
           this.heading = "Welcome to the Bahn Commander Navigation App!";
           this.firstName = "John";
@@ -27,7 +33,15 @@ System.register([], function (_export) {
           },
           welcome: {
             value: function welcome() {
-              alert("Welcome, " + this.fullName + "!");
+              console.log(this.eventAggregator);
+              var message = new MQTTMessage("welcome", this.fullName);
+              this.eventAggregator.publish(message);
+            }
+          }
+        }, {
+          inject: {
+            value: function inject() {
+              return [EventAggregator];
             }
           }
         });
@@ -52,4 +66,4 @@ System.register([], function (_export) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvd2VsY29tZS93ZWxjb21lLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7cUNBQWEsT0FBTyxFQWdCUCxtQkFBbUI7Ozs7Ozs7Ozs7O0FBaEJuQixhQUFPO0FBQ1AsaUJBREEsT0FBTyxHQUNKO2dDQURILE9BQU87O0FBRWhCLGNBQUksQ0FBQyxPQUFPLEdBQUcsK0NBQStDLENBQUM7QUFDL0QsY0FBSSxDQUFDLFNBQVMsR0FBRyxNQUFNLENBQUM7QUFDeEIsY0FBSSxDQUFDLFFBQVEsR0FBRyxLQUFLLENBQUM7U0FDdkI7O3FCQUxVLE9BQU87QUFPZCxrQkFBUTtpQkFBQSxZQUFHO0FBQ2IsMEJBQVUsSUFBSSxDQUFDLFNBQVMsU0FBSSxJQUFJLENBQUMsUUFBUSxDQUFHO2FBQzdDOztBQUVELGlCQUFPO21CQUFBLG1CQUFHO0FBQ1IsbUJBQUssZUFBYSxJQUFJLENBQUMsUUFBUSxPQUFJLENBQUM7YUFDckM7Ozs7ZUFiVSxPQUFPOztBQWdCUCx5QkFBbUI7aUJBQW5CLG1CQUFtQjtnQ0FBbkIsbUJBQW1COzs7cUJBQW5CLG1CQUFtQjtBQUM5QixnQkFBTTttQkFBQSxnQkFBQyxLQUFLLEVBQUM7QUFDWCxxQkFBTyxLQUFLLElBQUksS0FBSyxDQUFDLFdBQVcsRUFBRSxDQUFDO2FBQ3JDOzs7O2VBSFUsbUJBQW1CIiwiZmlsZSI6ImFwcC9yb3V0ZXMvd2VsY29tZS93ZWxjb21lLmpzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvd2VsY29tZS93ZWxjb21lLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7TUFBUSxlQUFlLEVBQ2YsV0FBVyxpQ0FFTixPQUFPLEVBc0JQLG1CQUFtQjs7OztBQXpCeEIscUJBQWUsMkJBQWYsZUFBZTs7QUFDZixpQkFBVywrQkFBWCxXQUFXOzs7Ozs7Ozs7QUFFTixhQUFPO0FBR1AsaUJBSEEsT0FBTyxDQUdOLGVBQWUsRUFBRTtnQ0FIbEIsT0FBTzs7QUFJaEIsY0FBSSxDQUFDLGVBQWUsR0FBRyxlQUFlLENBQUM7O0FBRXZDLGNBQUksQ0FBQyxPQUFPLEdBQUcsK0NBQStDLENBQUM7QUFDL0QsY0FBSSxDQUFDLFNBQVMsR0FBRyxNQUFNLENBQUM7QUFDeEIsY0FBSSxDQUFDLFFBQVEsR0FBRyxLQUFLLENBQUM7U0FDdkI7O3FCQVRVLE9BQU87QUFXZCxrQkFBUTtpQkFBQSxZQUFHO0FBQ2IsMEJBQVUsSUFBSSxDQUFDLFNBQVMsU0FBSSxJQUFJLENBQUMsUUFBUSxDQUFHO2FBQzdDOztBQUVELGlCQUFPO21CQUFBLG1CQUFHO0FBQ1IscUJBQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLGVBQWUsQ0FBQyxDQUFDO0FBQ2xDLGtCQUFJLE9BQU8sR0FBRyxJQUFJLFdBQVcsQ0FBQyxTQUFTLEVBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQ3hELGtCQUFJLENBQUMsZUFBZSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsQ0FBQzthQUN2Qzs7O0FBbEJNLGdCQUFNO21CQUFBLGtCQUFFO0FBQUUscUJBQU8sQ0FBQyxlQUFlLENBQUMsQ0FBQzthQUFFOzs7O2VBRGpDLE9BQU87O0FBc0JQLHlCQUFtQjtpQkFBbkIsbUJBQW1CO2dDQUFuQixtQkFBbUI7OztxQkFBbkIsbUJBQW1CO0FBQzlCLGdCQUFNO21CQUFBLGdCQUFDLEtBQUssRUFBQztBQUNYLHFCQUFPLEtBQUssSUFBSSxLQUFLLENBQUMsV0FBVyxFQUFFLENBQUM7YUFDckM7Ozs7ZUFIVSxtQkFBbUIiLCJmaWxlIjoiYXBwL3JvdXRlcy93ZWxjb21lL3dlbGNvbWUuanMiLCJzb3VyY2VSb290IjoiLy4vc3JjIn0=

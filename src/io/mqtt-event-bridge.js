@@ -1,12 +1,14 @@
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {MQTTMessage} from 'bahn-commander/io/mqtt-message';
 import Paho from 'paho';
+import uuid from 'node-uuid';
+import localforage from 'localforage';
 
 // var MQTT_SERVER_URI = 'ws://mashtun.homebrew.lan:1884',
 var MQTT_SERVER_HOST = 'mashtun.homebrew.lan';
 var MQTT_SERVER_PORT = 1884;
 
-var MQTT_CLIENT_ID = 'aurelia_bridge';
+var MQTT_CLIENT_ID = 'mqtt_event_bridge';
 
 export class MQTTEventBridge {
   static inject(){ return [EventAggregator]; }
@@ -14,15 +16,28 @@ export class MQTTEventBridge {
   constructor(eventAggregator) {
     this.eventAggregator = eventAggregator;
 
-    this.clientId = 'bahn_commander';
     this.prefix = 'bahn.io/commander/';
     this.prefixRe = new RegExp('^(/)?' + this.prefix, 'i');
 
     this.subscriptions = {};
 
+    // todo: (iw) this is some gnarly async just to get at localstorage
+    localforage.ready().then(() => {
+      localforage.getItem('mqtt-event-bridge-uid').then((uid) => {
+        if (!uid) {
+          uid = uuid.v1();
+          localforage.setItem('mqtt-event-bridge-uid', uid);
+        }
+
+        this.uid = uid;
+        this.clientId = MQTT_CLIENT_ID + '-' + this.uid;
+
+        this.connect();
+      });
+    });
+
     // handle MQTTMessage from app
     this.dispose = this.eventAggregator.subscribe(MQTTMessage, this.onMessageOutbound.bind(this));
-    this.connect();
   }
 
   // connect to mqtt

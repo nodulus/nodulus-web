@@ -33,12 +33,13 @@
     "reflux": "^0.2.7",
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
+    "uuid": "^2.0.1",
     "vinyl-paths": "^1.0.0",
     "yargs": "^3.1.0"
   },
   "jspm": {
     "directories": {
-      "lib": ""
+      "lib": "/*"
     },
     "dependencies": {
       "aurelia-bootstrapper": "^0.9.3",

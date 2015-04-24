@@ -8,27 +8,48 @@ nav-bar {
     @include container;
 
     display: block;
-    background-color: #eee;
+    background-color: rgba(225, 225, 225, 0.75);
 
     .nav-menu {
       @include span(1 of 12);
 
       .menu-toggle {
-        @include icon-button(1.5em);
+        @include icon-button(1.35em);
+        @include icon-clickable();
+
+        margin: 0.4em;
+        line-height: 0.95;
+      }
+
+    }
+
+    .nav-routes {
+      @include span(10 of 12 at 1);
+    }
+
+    .nav-indicators {
+      @include span(1 of 12 at 11);
+
+      text-align: right;
+
+      .spinner {
+        @include icon-spin();
       }
     }
 
-    .nav-groups {
-      @include span(11 of 12 at 1);
-
-      ul {
-        margin: 1em;
+    .nav-block {
+      ul.nav-group {
+        display: inline-block;
+        margin: 0.6em;
+        margin-left: 0;
         padding: 0;
 
         li {
           display: inline-block;
           padding: 0;
           list-style: none;
+          vertical-align: middle;
+          text-shadow: 0 1px rgba(255, 255, 255, 0.45), 0 -1px rgba(0, 0, 0, 0.015);
 
           a {
             padding: 0.5em;

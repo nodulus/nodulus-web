@@ -1,11 +1,14 @@
 var path = require('path'),
-    root = '.';
+    root = '.',
+    base = path.resolve(root);
+
+console.log('base', base);
 
 // Project paths
 // -------------
 
 exports.paths = {
-  base: path.resolve(root),
+  base: base,
   root: root,
   dest: root + '/dist',
   docs: root + '/docs',
@@ -14,7 +17,7 @@ exports.paths = {
   scripts: root + '/src/**/*.js',
   templates: root + '/src/**/*.{jade,html}',
   styles: root + '/src/**/*.{scss,sass,css}',
-  modules: [ root + '/node_modules', root + '/jspm_packages' ]
+  modules: [ path.relative(base, 'node_modules'), path.relative(base, 'jspm_packages') ]
 };
 
 

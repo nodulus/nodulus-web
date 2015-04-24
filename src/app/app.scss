@@ -1,8 +1,6 @@
 @import "settings";
 
 .viewport {
-  // overflow: hidden;
-
   .app {
     transition: transform 0.3s ease;
 
@@ -19,16 +17,21 @@
     }
     
     .main {
-      @include container; // establish a layout context
-
       .page-host {
-        position: absolute;
+        position: relative;
         left: 0;
         right: 0;
-        top: app-get(nav-bar, height);
+        top: 0;
         bottom: 0;
         overflow-x: hidden;
         overflow-y: auto;
+
+        .route {
+          @include container;
+
+          padding: app-get(main, padding);
+          padding-top: 0;
+        }
       }
     }
   }

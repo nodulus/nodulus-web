@@ -16,15 +16,16 @@ export class App {
       config.title = 'Bahn Commander';
       config.options.pushState = true;
       config.map([
-        { route: ['', 'welcome'], moduleId: 'app/routes/welcome/welcome', nav: true, title:'Welcome' },
-        { route: 'deuce',         moduleId: 'app/routes/deuce/deuce',   nav: true }
+        { route: ['', 'welcome'], moduleId: 'app/routes/welcome/welcome', nav: true, title: 'Welcome' },
+        { route: 'grid',         moduleId: 'app/routes/grid/grid',   nav: true, title: 'Grid' }
       ]);
     });
 
     this.eventAggregator.subscribe('mqtt-event-bridge', payload => {
       if (payload == 'connected') {
-        this.mqtt.subscribe('/broadcast/#');
-        this.mqtt.subscribe('#');
+        this.mqtt.subscribe('broadcast/#');
+        this.mqtt.subscribe('owntracks/#');
+        this.mqtt.subscribe('welcome/#');
       }
     });
   }

@@ -1,17 +1,31 @@
 @import "./settings";
 @import "./icons";
 
+@import "github/tgdev/animate-sass@0.6.3/animate";
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
 // Index
 // =====
 
 html {
   margin: 0;
   padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 body {
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: app-color(hyper, off);
+  text-decoration: none;
+
+  &:hover {
+    color: app-color(hyper, hover);
+  }
 }
 
 .hold-up {
@@ -27,7 +41,7 @@ body {
     line-height: 72px;
     text-shadow: rgba(0, 0, 0, 0.25) 0 0 15px;
     text-transform: uppercase;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    // font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   .spinner {
@@ -70,6 +84,27 @@ body {
     }
   }
 }
+
+// tgdev/animate-sass
+// ------------------
+
+$use-fadeIn: true;
+$use-fadeOut: true;
+$use-zoomIn: true;
+$use-zoomOut: true;
+
+body {
+  -webkit-backface-visibility: hidden; // Addresses a small issue in webkit: http://bit.ly/NEdoDq
+}
+.animated {
+  @include animate-prefixer(animation-duration, $base-duration);
+  @include animate-prefixer(animation-fill-mode, both);
+
+  &.hinge {
+    @include animate-prefixer(animation-duration, $base-duration * 2);
+  }
+}
+
 
 // TODO: (IW) figure out how to put this int _icons.scss and call it only once
 // eg: @generate-icons( app-get($icons, glyphs) );

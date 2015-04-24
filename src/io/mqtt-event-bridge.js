@@ -16,7 +16,7 @@ export class MQTTEventBridge {
   constructor(eventAggregator) {
     this.eventAggregator = eventAggregator;
 
-    this.prefix = 'bahn.io/commander/';
+    this.prefix = '';
     this.prefixRe = new RegExp('^(/)?' + this.prefix, 'i');
 
     this.subscriptions = {};
@@ -38,6 +38,10 @@ export class MQTTEventBridge {
 
     // handle MQTTMessage from app
     this.dispose = this.eventAggregator.subscribe(MQTTMessage, this.onMessageOutbound.bind(this));
+  }
+
+  configure() {
+    
   }
 
   // connect to mqtt
@@ -98,7 +102,8 @@ export class MQTTEventBridge {
   // subscribe to new mqtt topic (filter?)
   subscribe(topic, opts = {}) {
     if (!topic) {
-      console.log('Invalid topic', topic);
+      console.warn('empty topic', topic);
+      return;
     }
 
     var dest = this.resolve(topic);
@@ -131,7 +136,8 @@ export class MQTTEventBridge {
 
   unsubscribe(topic, opts = {}) {
     if (!topic) {
-      console.log('Invalid topic', topic);
+      console.warn('empty topic', topic);
+      return;
     }
 
     var dest = this.resolve(topic);
@@ -169,13 +175,15 @@ export class MQTTEventBridge {
   // ------------------------------------------------------------------- Helpers
 
   resolve(topic) {
-    return (topic.charAt(0) === '/') ? topic.slice(1) : this.prefix + topic.replace(/^\.(\/)?/, '');
+    return (topic.charAt(0) === '/') ?
+      topic.slice(1) :
+      this.prefix + topic.replace(/^\.(\/)?/, '');
   }
 
   // ------------------------------------------------------------------ Handlers
 
   onConnectSuccess() {
-    console.log('connected to mqtt');
+    console.info('connected to mqtt');
 
     // listen for all messages under this.prefix
     this.client.subscribe(this.resolve('#'));
@@ -185,37 +193,38 @@ export class MQTTEventBridge {
   }
 
   onConnectFailed() {
-    console.log('failed to connect to mqtt', arguments);    
+    console.error('failed to connect to mqtt', arguments);    
   }
 
   onConnectionLost(res) {
-    console.log('connection lost', arguments);
+    console.warn('connection lost', arguments);
 
     if (res.errorCode !== 0) {
-      console.log('onConnectionLost', res);
+      console.error('onConnectionLost', res);
     }
   }
 
   onSubscribeSuccess(res) {
-    console.log('subscribe success', arguments);
+    console.info('subscribe success', arguments);
     if (res.invocationContext) {
       this.subscriptions[res.invocationContext.topic].status = 1;
     }
   }
 
   onSubscribeFailure(res) {
-    console.log('subscribe failure', arguments);
+    console.error('subscribe failure', arguments);
   }
 
   onUnsubscribeSuccess(res) {
-    console.log('unsubscribe success', arguments);
+    console.info('unsubscribe success', arguments);
+
     if (res.invocationContext) {
       this.subscriptions[res.invocationContext.topic].status = -1;
     }
   }
 
   onUnsubscribeFailure(res) {
-    console.log('unsubscribe failure', arguments);
+    console.error('unsubscribe failure', arguments);
   }
 
   // mqtt -> app
@@ -224,10 +233,10 @@ export class MQTTEventBridge {
       payload = message.payloadString,
       topic = dest.replace(this.prefixRe, '');
 
-    console.log('received client message', dest, topic, payload);
+    console.info('received client message', dest, topic, payload);
 
     if(Object.keys(this.subscriptions).indexOf(topic) === -1) {
-      console.log('message received on zombie topic', topic, payload, this.subscriptions);
+      console.warn('message received on zombie topic', topic, payload, this.subscriptions);
     }
 
     // publish to app
@@ -236,7 +245,8 @@ export class MQTTEventBridge {
 
   // app -> mqtt
   onMessageOutbound(message) {
-    console.log('received app message', message);
+    console.info('received app message', message);
+    
     // publish to mqtt
     this.publish(message);
   }

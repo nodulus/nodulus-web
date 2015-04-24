@@ -2,7 +2,7 @@ System.config({
   "transpiler": "6to5",
   "paths": {
     "*": "*.js",
-    "bahn-commander/*": "/*.js",
+    "bahn-commander/*": "*.js",
     "github:*": "jspm_packages/github/*.js",
     "npm:*": "jspm_packages/npm/*.js"
   },
@@ -11,11 +11,12 @@ System.config({
       "exports": "Paho"
     }
   },
-  "baseUrl": ""
+  "baseUrl": "../"
 });
 
 System.config({
   "map": {
+    "animate-sass": "github:tgdev/animate-sass@0.6.3",
     "aurelia-bootstrapper": "github:aurelia/bootstrapper@0.9.5",
     "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.4.5",
     "aurelia-framework": "github:aurelia/framework@0.8.8",
@@ -27,6 +28,7 @@ System.config({
     "crossfilter": "github:square/crossfilter@1.3.11",
     "d3": "github:mbostock/d3@3.5.5",
     "dc.js": "github:dc-js/dc.js@1.7.3",
+    "firespray": "github:boundary/firespray@master",
     "font-awesome": "npm:font-awesome@4.3.0",
     "gulp": "npm:gulp@3.8.11",
     "gulp-jade": "github:phated/gulp-jade@0.11.0",
@@ -38,6 +40,7 @@ System.config({
     "md": "github:guybedford/system-md@0.0.1",
     "node-uuid": "npm:node-uuid@1.4.3",
     "normalize.css": "github:necolas/normalize.css@3.0.3",
+    "nvd3": "github:novus/nvd3@1.7.1",
     "paho": "bahn-commander/io/mqttws31",
     "react": "npm:react@0.12.2",
     "react-router": "npm:react-router@0.11.6",
@@ -170,7 +173,7 @@ System.config({
       "assert": "npm:assert@1.3.0"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
-      "buffer": "npm:buffer@3.1.2"
+      "buffer": "npm:buffer@3.2.1"
     },
     "github:jspm/nodelibs-constants@0.1.0": {
       "constants-browserify": "npm:constants-browserify@0.0.1"
@@ -236,9 +239,9 @@ System.config({
       "browserify-zlib": "npm:browserify-zlib@0.1.4"
     },
     "github:necolas/normalize.css@3.0.3": {
-      "css": "github:systemjs/plugin-css@0.1.9"
+      "css": "github:systemjs/plugin-css@0.1.10"
     },
-    "github:systemjs/plugin-css@0.1.9": {
+    "github:systemjs/plugin-css@0.1.10": {
       "clean-css": "npm:clean-css@3.1.9",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0"
@@ -273,7 +276,7 @@ System.config({
     "npm:asap@1.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:asn1.js@1.0.3": {
+    "npm:asn1.js@1.0.4": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "bn.js": "npm:bn.js@1.3.0",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -353,7 +356,7 @@ System.config({
       "readable-stream": "npm:readable-stream@1.1.13",
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:buffer@3.1.2": {
+    "npm:buffer@3.2.1": {
       "base64-js": "npm:base64-js@0.0.8",
       "ieee754": "npm:ieee754@1.1.4",
       "is-array": "npm:is-array@1.0.1"
@@ -560,7 +563,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:font-awesome@4.3.0": {
-      "css": "github:systemjs/plugin-css@0.1.9"
+      "css": "github:systemjs/plugin-css@0.1.10"
     },
     "npm:forever-agent@0.5.2": {
       "http": "github:jspm/nodelibs-http@1.7.1",
@@ -937,7 +940,7 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:parse-asn1@3.0.0": {
-      "asn1.js": "npm:asn1.js@1.0.3",
+      "asn1.js": "npm:asn1.js@1.0.4",
       "browserify-aes": "npm:browserify-aes@1.0.0",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "create-hash": "npm:create-hash@1.1.1",
@@ -1061,7 +1064,7 @@ System.config({
       "querystring": "github:jspm/nodelibs-querystring@0.1.0",
       "stream": "github:jspm/nodelibs-stream@0.1.0",
       "stringstream": "npm:stringstream@0.0.4",
-      "tough-cookie": "npm:tough-cookie@0.12.1",
+      "tough-cookie": "npm:tough-cookie@0.13.0",
       "tunnel-agent": "npm:tunnel-agent@0.4.0",
       "url": "github:jspm/nodelibs-url@0.1.0",
       "util": "github:jspm/nodelibs-util@0.1.0",
@@ -1170,7 +1173,7 @@ System.config({
     "npm:timers-browserify@1.4.0": {
       "process": "npm:process@0.10.1"
     },
-    "npm:tough-cookie@0.12.1": {
+    "npm:tough-cookie@0.13.0": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "net": "github:jspm/nodelibs-net@0.1.2",

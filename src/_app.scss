@@ -29,3 +29,12 @@
 
   @return null;
 }
+
+@function app-color( $args... ) {
+  $nargs: (app-get(colors));
+  @for $i from 1 through length($args) {
+    $nargs: append($nargs, nth($args, $i));
+  }
+
+  @return app-get( $nargs... );
+}

@@ -28,27 +28,17 @@ exports.opts = {};
 
 // 6to5
 exports.opts.to5 = {
-  filename: '',
-  filenameRelative: '',
-  blacklist: [],
-  whitelist: [],
-  modules: '',
+  comments: false,
+  compact: false,
   sourceMap: true,
   sourceMapName: '',
-  sourceRoot: '',
-  moduleRoot: '',
   moduleIds: false,
-  experimental: false,
-  format: {
-    comments: false,
-    compact: false,
-    indent: {
-      parentheses: true,
-      adjustMultilineComment: true,
-      style: "  ",
-      base: 0
-    }
-  }
+  stage: 2,
+  modules: 'system',
+  optional: [
+    "es7.decorators",
+    "es7.classProperties"
+  ]
 };
 
 // Browsersync

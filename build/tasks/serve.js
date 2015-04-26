@@ -12,7 +12,7 @@ gulp.task('serve', ['build'], function(done) {
     port: config.opts.browsersync.port,
     server: {
       baseDir: ['dist'],
-      middleware: [historyApiFallback, function (req, res, next) {
+      middleware: [historyApiFallback({}), function (req, res, next) {
         res.setHeader('Access-Control-Allow-Origin', '*');
         next();
       }]

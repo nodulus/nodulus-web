@@ -1,10 +1,7 @@
-import {Behavior} from 'aurelia-framework';
+import {bindable} from 'aurelia-framework';
 
 export class NavBar {
-  static metadata(){
-    return Behavior
-      .withProperty('router');
-    }
+  @bindable router = null;
 
   constructor() {
     this.open = false;

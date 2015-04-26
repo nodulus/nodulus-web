@@ -1,7 +1,8 @@
 import {EventAggregator} from 'aurelia-event-aggregator';
+import {MQTTConfig} from 'bahn-commander/io/mqtt-config';
 import {MQTTMessage} from 'bahn-commander/io/mqtt-message';
 import Paho from 'paho';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 import localforage from 'localforage';
 
 // var MQTT_SERVER_URI = 'ws://mashtun.homebrew.lan:1884',
@@ -16,32 +17,50 @@ export class MQTTEventBridge {
   constructor(eventAggregator) {
     this.eventAggregator = eventAggregator;
 
-    this.prefix = '';
-    this.prefixRe = new RegExp('^(/)?' + this.prefix, 'i');
+    this.options = new MQTTConfig();
 
     this.subscriptions = {};
 
-    // todo: (iw) this is some gnarly async just to get at localstorage
-    localforage.ready().then(() => {
-      localforage.getItem('mqtt-event-bridge-uid').then((uid) => {
-        if (!uid) {
-          uid = uuid.v1();
-          localforage.setItem('mqtt-event-bridge-uid', uid);
-        }
-
-        this.uid = uid;
-        this.clientId = MQTT_CLIENT_ID + '-' + this.uid;
-
-        this.connect();
-      });
-    });
-
     // handle MQTTMessage from app
     this.dispose = this.eventAggregator.subscribe(MQTTMessage, this.onMessageOutbound.bind(this));
+
+    // todo: (iw) this is some gnarly code just to get at localstorage
+    var load = () => {
+      var uid;
+
+      try {
+        let ready = localforage.ready();
+        uid = localforage.getItem('mqtt-event-bridge-uid');
+      } catch (e) {
+        console.error('failed to init localforage', e);
+      }
+
+      if (!uid) {
+        uid = uuid.v1();
+        localforage.setItem('mqtt-event-bridge-uid', uid);
+      }
+
+      this.uid = uid;
+    };
+    load();
   }
 
-  configure() {
-    
+  configure(callbackOrConfig) {
+    this.isConfigured = true;
+
+    if (typeof callbackOrConfig == 'function') {
+      callbackOrConfig(this.options);
+    } else if (MQTTConfig.isPrototypeOf(callbackOrConfig)) {
+      this.options = callbackOrConfig;
+    } else {
+      this.options = new MQTTConfig(callbackOrConfig);
+    }
+
+    return this;
+  }
+
+  get clientID() {
+    return this.options.clientID || MQTT_CLIENT_ID + this.uid;
   }
 
   // connect to mqtt
@@ -49,7 +68,7 @@ export class MQTTEventBridge {
     if (!this.client) {
       console.log('creating client');
 
-      this.client = new Paho.MQTT.Client(MQTT_SERVER_HOST, MQTT_SERVER_PORT, this.clientId);
+      this.client = new Paho.MQTT.Client(this.options.hostname, this.options.port, this.clientID);
       // handle mqtt disconnect
       this.client.onConnectionLost = this.onConnectionLost.bind(this);
       // handle messages from mqtt
@@ -84,10 +103,8 @@ export class MQTTEventBridge {
 
   // send to mqtt
   publish(message, opts = {}) {
-    if (message.io !== 'outbound') {
-      console.log('not publishing', message.io, message);
-      return;
-    }
+    // don't re-publish inbound messages back to mqtt
+    if (message.io === 'inbound') return;
 
     var mqttMessage = new Paho.MQTT.Message(message.payload);
     mqttMessage.destinationName = this.resolve(message.topic);
@@ -177,7 +194,17 @@ export class MQTTEventBridge {
   resolve(topic) {
     return (topic.charAt(0) === '/') ?
       topic.slice(1) :
-      this.prefix + topic.replace(/^\.(\/)?/, '');
+      this.prefixer(topic.replace(/^\.(\/)?/, ''));
+  }
+
+  prefixer(topic) {
+    if (!this.options.prefix) return topic;
+    return [this.options.prefix, topic].join('/');
+  }
+
+  unprefixer(topic) {
+    var re = new RegExp('^(/)?' + this.options.prefix, 'i');
+    return topic.replace(re, '');
   }
 
   // ------------------------------------------------------------------ Handlers
@@ -189,7 +216,7 @@ export class MQTTEventBridge {
     this.client.subscribe(this.resolve('#'));
 
     this.eventAggregator.publish('mqtt-event-bridge', 'connected');
-    this.publish(new MQTTMessage('/broadcast/client/' + this.clientId, 'connect'));
+    this.publish(new MQTTMessage('/broadcast/client/' + this.clientID, 'connect'));
   }
 
   onConnectFailed() {
@@ -205,7 +232,6 @@ export class MQTTEventBridge {
   }
 
   onSubscribeSuccess(res) {
-    console.info('subscribe success', arguments);
     if (res.invocationContext) {
       this.subscriptions[res.invocationContext.topic].status = 1;
     }
@@ -216,8 +242,6 @@ export class MQTTEventBridge {
   }
 
   onUnsubscribeSuccess(res) {
-    console.info('unsubscribe success', arguments);
-
     if (res.invocationContext) {
       this.subscriptions[res.invocationContext.topic].status = -1;
     }
@@ -231,13 +255,13 @@ export class MQTTEventBridge {
   onMessageInbound(message) {
     var dest = message.destinationName,
       payload = message.payloadString,
-      topic = dest.replace(this.prefixRe, '');
+      topic = this.unprefixer(dest);
 
-    console.info('received client message', dest, topic, payload);
+    console.info('received client message', dest, topic, payload, message);
 
-    if(Object.keys(this.subscriptions).indexOf(topic) === -1) {
-      console.warn('message received on zombie topic', topic, payload, this.subscriptions);
-    }
+    // if(Object.keys(this.subscriptions).indexOf(topic) === -1) {
+    //   console.warn('message received on zombie topic', topic, payload, this.subscriptions);
+    // }
 
     // publish to app
     this.eventAggregator.publish(new MQTTMessage(message, topic));

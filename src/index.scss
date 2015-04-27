@@ -8,25 +8,19 @@
 // =====
 
 html {
+  min-height: 100%;
+  min-width: 100%;
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
 }
 
 body {
+  height: 100vh;
   margin: 0;
   padding: 0;
   // Addresses issue in webkit: http://bit.ly/NEdoDq
   @include prefix(backface-visibility, hidden, 'webkit');
-}
-
-a {
-  color: app-color(hyper, off);
-  text-decoration: none;
-
-  &:hover {
-    color: app-color(hyper, hover);
-  }
 }
 
 .hold-up {
@@ -41,11 +35,12 @@ a {
     font-size: 72px;
     line-height: 72px;
     text-shadow: rgba(0, 0, 0, 0.25) 0 0 15px;
-    text-transform: uppercase;
-    // font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   .spinner {
+    @extend icon-spin();
+    @include spin();
+    
     margin: 6em auto;
     font-size: 10px;
     position: relative;
@@ -69,7 +64,8 @@ a {
 
 // generate an icon class for each member of $icons
 @each $name, $value in app-get($icons, glyphs) {
-  .icon--#{$name} {
+  .icon--#{$name},
+  %icon-#{$name} {
     @extend %icon;
 
     &:before {

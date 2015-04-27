@@ -24,17 +24,32 @@ var config = module.exports = {
 
 var app = koa();
 
+// Logging
+app.use(function *(next){
+  var start = new Date;
+  yield next;
+  var ms = new Date - start;
+  console.log('%s %s - %s', this.method, this.url, ms);
+});
+
 // Static content
 app.use(serve(__dirname + '/../dist'));
+
+// CORS
+app.use(function *(next) {
+  this.set('Access-Control-Allow-Origin', '*');
+  yield next;
+});
 
 // Create a RethinkDB connection
 app.use(createConnection);
 
 app.use(router(app));
-app.get('/message/get', get);
-app.put('/message/new', create);
-app.post('/message/update', update);
-app.post('/message/delete', del);
+app.get('/message', get);
+app.get('/message/:id', get);
+app.post('/message', create);
+app.put('/message', update);
+app.del('/message/:id', del);
 
 // Close the RethinkDB connection
 app.use(closeConnection);
@@ -44,8 +59,7 @@ app.use(closeConnection);
  */
 function* createConnection(next) {
   try {
-    var conn =
-      yield r.connect(config.rethinkdb);
+    var conn = yield r.connect(config.rethinkdb);
     this._rdbConn = conn;
   } catch (err) {
     this.status = 500;
@@ -56,13 +70,22 @@ function* createConnection(next) {
 
 // Retrieve all messages
 function* get(next) {
+  var cursor = r.table('messages');
+
+  if (this.params.id) {
+    cursor = cursor.get(this.params.id);
+  } else {
+    cursor = cursor.orderBy({
+      index: "createdAt"
+    });
+  }
+
   try {
-    var cursor = yield r.table('messages').orderBy({
-        index: "createdAt"
-      }).run(this._rdbConn);
+    cursor = yield cursor.run(this._rdbConn);
     var result = yield cursor.toArray();
     this.body = JSON.stringify(result);
   } catch (e) {
+    console.error(e);
     this.status = 500;
     this.body = e.message || http.STATUS_CODES[this.status];
   }
@@ -72,17 +95,21 @@ function* get(next) {
 // Create a new message
 function* create(next) {
   try {
-    var message =
-      yield parse(this);
+    console.log(parse.json(this));
+    
+    var message = yield parse.json(this);
     message.createdAt = r.now(); // Set the field `createdAt` to the current time
-    var result =
-      yield r.table('messages').insert(message, {
-        returnVals: true
+    
+    var result = yield r.table('messages').insert(message, {
+        returnChanges: true
       }).run(this._rdbConn);
 
     message = result.new_val; // message now contains the previous message + a field `id` and `createdAt`
+
+    console.log("result", result);
     this.body = JSON.stringify(message);
   } catch (e) {
+    console.error(e);
     this.status = 500;
     this.body = e.message || http.STATUS_CODES[this.status];
   }
@@ -92,19 +119,18 @@ function* create(next) {
 // Update a message
 function* update(next) {
   try {
-    var message =
-      yield parse(this);
+    var message = yield parse.json(this);
     delete message._saving;
-    if ((message == null) || (message.id == null)) {
+    if (!message || !message.id) {
       throw new Error("The message must have a field `id`.");
     }
 
-    var result =
-      yield r.table('messages').get(message.id).update(message, {
-        returnVals: true
+    var result = yield r.table('messages').get(message.id).update(message, {
+        returnChanges: true
       }).run(this._rdbConn);
     this.body = JSON.stringify(result.new_val);
   } catch (e) {
+    console.error(e);
     this.status = 500;
     this.body = e.message || http.STATUS_CODES[this.status];
   }
@@ -113,16 +139,16 @@ function* update(next) {
 
 // Delete a message
 function* del(next) {
+  var id = this.params.id,
+    message;
+
   try {
-    var message =
-      yield parse(this);
-    if ((message == null) || (message.id == null)) {
-      throw new Error("The message must have a field `id`.");
-    }
-    var result =
-      yield r.table('messages').get(message.id).delete().run(this._rdbConn);
+    message = yield parse(this);
+    if (!id && (!message || !message.id)) throw new Error("Missing message id.");
+    var result = yield r.table('messages').get(id || message.id).delete().run(this._rdbConn);
     this.body = "";
   } catch (e) {
+    console.error(e);
     this.status = 500;
     this.body = e.message || http.STATUS_CODES[this.status];
   }
@@ -134,6 +160,7 @@ function* del(next) {
  */
 function* closeConnection(next) {
   this._rdbConn.close();
+  yield next;
 }
 
 // r.connect(config.rethinkdb, function(err, conn) {
@@ -168,6 +195,7 @@ function* closeConnection(next) {
 //         });
 //     });
 // });
+startKoa();
 
 function startKoa() {
   app.listen(config.koa.port);

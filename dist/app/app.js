@@ -1,5 +1,5 @@
 System.register(['aurelia-framework', 'aurelia-router', 'aurelia-event-aggregator', '../io/mqtt/mqtt-event-bridge', '../app'], function (_export) {
-  var inject, Router, EventAggregator, MQTTEventBridge, AppConfig, _classCallCheck, App;
+  var inject, Router, EventAggregator, MQTTEventBridge, AppConfig, _createClass, _classCallCheck, App, AuthorizeStep;
 
   return {
     setters: [function (_aureliaFramework) {
@@ -15,6 +15,8 @@ System.register(['aurelia-framework', 'aurelia-router', 'aurelia-event-aggregato
     }],
     execute: function () {
       'use strict';
+
+      _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
       _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
@@ -32,7 +34,9 @@ System.register(['aurelia-framework', 'aurelia-router', 'aurelia-event-aggregato
           this.router.configure(function (config) {
             config.title = 'Bahn Commander';
             config.options.pushState = true;
-            config.map([{ route: ['', 'welcome'], moduleId: 'app/routes/welcome/welcome', nav: true, title: 'Welcome' }, { route: 'grid', moduleId: 'app/routes/grid/grid', nav: true, title: 'Grid' }]);
+
+            config.addPipelineStep('authorize', AuthorizeStep);
+            config.map([{ route: ['welcome'], moduleId: 'app/routes/welcome/welcome', nav: true, title: 'Welcome' }, { route: 'grid', moduleId: 'app/routes/grid/grid', nav: true, title: 'Grid' }, { route: 'settings', moduleId: 'app/routes/settings/settings', nav: true, auth: true, title: 'Settings' }, { route: '', redirect: 'welcome' }]);
           });
 
           this.mqtt.configure(this.config.mqtt);
@@ -54,7 +58,31 @@ System.register(['aurelia-framework', 'aurelia-router', 'aurelia-event-aggregato
       })();
 
       _export('App', App);
+
+      AuthorizeStep = (function () {
+        function AuthorizeStep() {
+          _classCallCheck(this, AuthorizeStep);
+        }
+
+        _createClass(AuthorizeStep, [{
+          key: 'run',
+          value: function run(routingContext, next) {
+            if (routingContext.nextInstructions.some(function (i) {
+              return i.config.auth;
+            })) {
+              var isLoggedIn = false;
+              if (!isLoggedIn) {
+                return next.cancel(new Redirect('login'));
+              }
+            }
+
+            return next();
+          }
+        }]);
+
+        return AuthorizeStep;
+      })();
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9hcHAuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtvRkFPYSxHQUFHOzs7O2lDQVBSLE1BQU07OzhCQUNOLE1BQU07O2dEQUNOLGVBQWU7OytDQUNmLGVBQWU7O3VCQUNmLFNBQVM7Ozs7Ozs7QUFHSixTQUFHO0FBQ0gsaUJBREEsR0FBRyxDQUNGLE1BQU0sRUFBRSxNQUFNLEVBQUUsZUFBZSxFQUFFLElBQUksRUFBRTs7Ozs7QUFDakQsY0FBSSxDQUFDLE1BQU0sR0FBRyxNQUFNLENBQUM7QUFDckIsY0FBSSxDQUFDLE1BQU0sR0FBRyxNQUFNLENBQUM7QUFDckIsY0FBSSxDQUFDLGVBQWUsR0FBRyxlQUFlLENBQUM7QUFDdkMsY0FBSSxDQUFDLElBQUksR0FBRyxJQUFJLENBQUM7O0FBRWpCLGNBQUksQ0FBQyxNQUFNLENBQUMsU0FBUyxDQUFDLFVBQUEsTUFBTSxFQUFJO0FBQzlCLGtCQUFNLENBQUMsS0FBSyxHQUFHLGdCQUFnQixDQUFDO0FBQ2hDLGtCQUFNLENBQUMsT0FBTyxDQUFDLFNBQVMsR0FBRyxJQUFJLENBQUM7QUFDaEMsa0JBQU0sQ0FBQyxHQUFHLENBQUMsQ0FDVCxFQUFFLEtBQUssRUFBRSxDQUFDLEVBQUUsRUFBRSxTQUFTLENBQUMsRUFBRSxRQUFRLEVBQUUsNEJBQTRCLEVBQUUsR0FBRyxFQUFFLElBQUksRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLEVBQy9GLEVBQUUsS0FBSyxFQUFFLE1BQU0sRUFBVSxRQUFRLEVBQUUsc0JBQXNCLEVBQUksR0FBRyxFQUFFLElBQUksRUFBRSxLQUFLLEVBQUUsTUFBTSxFQUFFLENBQ3hGLENBQUMsQ0FBQztXQUNKLENBQUMsQ0FBQzs7QUFFSCxjQUFJLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxDQUFDOztBQUV0QyxjQUFJLENBQUMsZUFBZSxDQUFDLFNBQVMsQ0FBQyxtQkFBbUIsRUFBRSxVQUFBLE9BQU8sRUFBSTtBQUM3RCxnQkFBSSxPQUFPLElBQUksV0FBVyxFQUFFO0FBQzFCLG9CQUFLLElBQUksQ0FBQyxTQUFTLENBQUMsYUFBYSxDQUFDLENBQUM7QUFDbkMsb0JBQUssSUFBSSxDQUFDLFNBQVMsQ0FBQyxhQUFhLENBQUMsQ0FBQztBQUNuQyxvQkFBSyxJQUFJLENBQUMsU0FBUyxDQUFDLFdBQVcsQ0FBQyxDQUFDO2FBQ2xDO1dBQ0YsQ0FBQyxDQUFDOztBQUVILGNBQUksQ0FBQyxJQUFJLENBQUMsT0FBTyxFQUFFLENBQUM7U0FDckI7O21CQTNCVSxHQUFHO0FBQUgsV0FBRyxHQURmLE1BQU0sQ0FBQyxTQUFTLEVBQUUsTUFBTSxFQUFFLGVBQWUsRUFBRSxlQUFlLENBQUMsQ0FDL0MsR0FBRyxLQUFILEdBQUc7ZUFBSCxHQUFHOzs7cUJBQUgsR0FBRyIsImZpbGUiOiJhcHAvYXBwLmpzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9
+//# sourceMappingURL=data:application/json;base64,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

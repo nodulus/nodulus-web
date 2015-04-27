@@ -23,25 +23,21 @@ export class MQTTEventBridge {
     // listen for app events w/ MQTTMessage payload
     this.dispose = this.eventAggregator.subscribe(MQTTMessage, this.onMessageOutbound.bind(this));
 
-    // todo: (iw) this is some gnarly code just to get at localstorage
-    function *loadUID(next) {
-      var uid;
-
-      try {
-        yield localforage.ready();
-        uid = yield localforage.getItem('mqtt-event-bridge-uid');
-        if (!uid) {
+    // todo: (iw) async/await this beast
+    localforage.ready()
+      .then(function() {
+        return localforage.getItem('mqtt-event-bridge-uid')
+          .then(function(uid) {
+            return this.uid = uid;
+          }.bind(this));
+      }.bind(this))
+      .done(function(uid) {
+        if(!this.uid) {
           uid = uuid.v1();
           localforage.setItem('mqtt-event-bridge-uid', uid);
         }
-      } catch (e) {
-        console.error('failed to init localforage', e);
-      }
-
-      yield next;
-    };
-
-    this.uid = loadUID();
+        return this.uid = uid;
+      }.bind(this));
   }
 
   configure(callbackOrConfig) {
@@ -59,8 +55,7 @@ export class MQTTEventBridge {
   }
 
   get clientID() {
-    console.log('client id', this.options.clientID, MQTT_CLIENT_ID, this.uid);
-    return this.options.clientID || MQTT_CLIENT_ID + this.uid;
+    return this.options.clientID || MQTT_CLIENT_ID + '-' + this.uid;
   }
 
   // connect to mqtt
@@ -119,7 +114,7 @@ export class MQTTEventBridge {
   // subscribe to new mqtt topic (filter?)
   subscribe(topic, opts = {}) {
     if (!topic) {
-      console.warn('empty topic', topic);
+      console.error('topic required', topic);
       return;
     }
 
@@ -153,13 +148,13 @@ export class MQTTEventBridge {
 
   unsubscribe(topic, opts = {}) {
     if (!topic) {
-      console.warn('empty topic', topic);
+      console.error('topic required', topic);
       return;
     }
 
     var dest = this.resolve(topic);
 
-    console.log('unsubscribe from topic', dest, topic, opts);
+    console.log('unsubscribing from topic', dest, topic, opts);
 
     if (!this.subscriptions[topic] || this.subscriptions[topic].status === -1) {
       if (!this.subscriptions[topic]) {
@@ -169,7 +164,6 @@ export class MQTTEventBridge {
     }
 
     if (this.subscriptions[topic].subscribers > 1) {
-      console.log('still more subscribers', this.subscriptions[topic].subscribers, topic);
       --this.subscriptions[topic].subscribers;
       return;
     }
@@ -185,7 +179,7 @@ export class MQTTEventBridge {
   }
 
   destroy() {
-    this.disconnect(); // this.client.disconnect();
+    this.disconnect();
     this.dispose();
   }
 
@@ -259,7 +253,7 @@ export class MQTTEventBridge {
       payload = message.payloadString,
       topic = this.unprefixer(dest);
 
-    console.info('received client message', dest, topic, payload, message);
+    console.info('received client message', dest, topic, payload);
 
     // if(Object.keys(this.subscriptions).indexOf(topic) === -1) {
     //   console.warn('message received on zombie topic', topic, payload, this.subscriptions);

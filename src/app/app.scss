@@ -1,15 +1,30 @@
 @import "settings";
 @import "helpers";
 
-.viewport {
-  .app {
-    transition: transform 0.3s ease;
+a {
+  color: app-color(hyper, off);
+  text-decoration: none;
+
+  &:hover {
+    color: app-color(hyper, hover);
+  }
+}
+
+.app {
+  position: relative;
+
+  .viewport {
+    @include transition(transform, 0.3s, ease);
+
+    position: relative;
+    height: 100vh;
+    width: 100vw;
 
     &.slide {
-      transform: translate3d(app-get(menu, width), 0, 0);
+      @include transform(translate3d(app-get(menu, width), 0, 0));
     }
 
-    .menu {
+    .slide-menu {
       position: absolute;
       width: app-get(menu, width);
       left: -1 * app-get(menu, width);
@@ -19,25 +34,18 @@
     
     .main {
       .page-host {
-        position: relative;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        overflow-x: hidden;
-        overflow-y: auto;
+        @extend %clearfix;
+        @include box-sizing(border-box);
 
-        .route {
-          @include container;
+        padding-top: 40px;
 
-          padding: app-get(main, padding);
-          padding-top: 0;
+        router-view {
+          display: block;
+
+          .route {
+          }
         }
       }
     }
   }
-}
-
-h2 {
-  @include spin();
 }

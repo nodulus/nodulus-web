@@ -5,6 +5,12 @@ export class Grid {
   constructor() {
     this.heading = 'This is a grid';
 
-    this.chart = {one: 'two'};
+    this.panels = [
+      {
+        name: 'Streamer',
+        module: '../../vis/streamline/streamline',
+        pos: {x: 0, y: 0, w: 2, h: 1}
+      }
+    ];
   }
 }

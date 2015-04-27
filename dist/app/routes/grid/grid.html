@@ -1,11 +1,11 @@
-<template>
-  <section class="route route-grid">
-    <h2>${heading}</h2>
+<link rel="stylesheet" type="text/css" href="grid.css"/>
 
+<template>
+  <section class="route route--grid">
     <require from="../../../vis/streamline/streamline"></require>
 
     <div class="grid">
-      <vis-streamline panel.bind="chart"></vis-streamline>
+      <vis-streamline panel.bind="panels"></vis-streamline>
     </div>
   </section>
 </template>

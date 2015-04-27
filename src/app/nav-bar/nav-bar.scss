@@ -3,12 +3,14 @@
 @import "icons";
 
 nav-bar {
-  display: block;
-
   nav {
     @include container;
 
     display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: rgba(225, 225, 225, 0.75);
 
     .nav-menu {
@@ -20,21 +22,6 @@ nav-bar {
 
         margin: 0.4em;
         line-height: 0.95;
-      }
-
-    }
-
-    .nav-routes {
-      @include span(10 of 12 at 1);
-    }
-
-    .nav-indicators {
-      @include span(1 of 12 at 11);
-
-      text-align: right;
-
-      .spinner {
-        @include spin();
       }
     }
 
@@ -55,6 +42,21 @@ nav-bar {
           a {
             padding: 0.5em;
           }
+        }
+      }
+
+
+      &.nav-routes {
+        @include span(10 of 12 at 1);
+      }
+
+      &.nav-indicators {
+        @include span(1 of 12 at 11);
+
+        text-align: right;
+
+        .spinner {
+          @include spin();
         }
       }
     }

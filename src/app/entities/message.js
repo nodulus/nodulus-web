@@ -1,13 +1,13 @@
 import {transient, inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-http-client';
-import {AppConfig} from '../app';
+import {AppConfig} from '../../app';
 
 @transient()
-@inject(HttpClient)
+@inject(AppConfig, HttpClient)
 export class Message {
-  constructor(http) {
-    // this.config = config.entities;
-    this.config = {uri: 'abc/123'};
+  constructor(config, http) {
+    this.config = config.entities;
+    this.options = {uri: '/'};
     this.http = http;
 
     this.name = 'message';

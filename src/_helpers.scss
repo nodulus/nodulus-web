@@ -12,7 +12,7 @@
 }
 
 // Add vendor prefixes
-@mixin prefix($property, $value, $prefixes: ()) {
+@mixin prefix($property, $value, $prefixes... ) {
   @each $prefix in $prefixes {
     -#{$prefix}-#{$property}: $value;
   }
@@ -21,7 +21,7 @@
 }
 
 @mixin accel {
-  @include prefix(transform, translate3d(0, 0, 0), 'webkit' 'ms');
+  @include prefix(transform, translate3d(0, 0, 0), webkit, ms);
 }
 
 @mixin retina() {
@@ -35,7 +35,7 @@
 @mixin image-2x($image, $image2x, $width, $height) {
   background-image: url($image);
   @include retina {
-    @include prefix(background-size, $width $height, webkit moz);
+    @include prefix(background-size, $width $height, webkit, moz);
     background-image: url($image);
   }
 }
@@ -70,26 +70,26 @@
   left: $left;
 }
 
-@mixin box-sizing($type) {
+@mixin box-sizing($type: border-box) {
   @include prefix(box-sizing, $type, moz);
 }
 
 @mixin border-radius($top-left-radius, $top-right-radius: null, $bottom-right-radius: null, $bottom-left-radius: null) {
-  @include prefix(border-top-left-radius, $top-left-radius, 'webkit' 'moz');
+  @include prefix(border-top-left-radius, $top-left-radius, webkit, moz);
   @if $top-right-radius {
-    @include prefix(border-top-right-radius, $top-right-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $top-right-radius, webkit, moz);
   } @else {
-    @include prefix(border-top-right-radius, $top-left-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $top-left-radius, webkit, moz);
   }
   @if $bottom-right-radius {
-    @include prefix(border-top-right-radius, $bottom-right-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $bottom-right-radius, webkit, moz);
   } @else {
-    @include prefix(border-top-right-radius, $top-left-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $top-left-radius, webkit, moz);
   }
   @if $bottom-left-radius {
-    @include prefix(border-top-right-radius, $bottom-left-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $bottom-left-radius, webkit, moz);
   } @else {
-    @include prefix(border-top-right-radius, $top-left-radius, 'webkit' 'moz');
+    @include prefix(border-top-right-radius, $top-left-radius, webkit, moz);
   }
 }
 
@@ -97,7 +97,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  @include prefix(transform, translate(-50%, -50%), webkit ms);
+  @include prefix(transform, translate(-50%, -50%), webkit, ms);
 }
 
 // Prefix animation keyframes
@@ -107,11 +107,11 @@
 }
 
 @mixin transform($transformation){
-  @include prefix(transform, $transformation, webkit ms);
+  @include prefix(transform, $transformation, webkit, ms);
 }
 
-@mixin transition($property: all, $time: 1s, $timing-function: ease-in-out) {
-  @include prefix(transition, $property $time $timing-function, 'webkit');
+@mixin transition($property: all, $time: 1s, $timing-function: linear) {
+  @include prefix(transition, $property $time $timing-function, webkit);
 }
 
 @mixin fade($fade-from: 0, $fade-to: 1, $animate: 1s ease) {
@@ -124,18 +124,18 @@
       opacity: $fade-to;
     }
   }
-  @include prefix(animation, $name $animate, moz webkit);
+  @include prefix(animation, $name $animate, moz, webkit);
 }
 
 @mixin spin($direction: clockwise, $animate: 1s infinite linear) {
   $name: spin- + $direction + '';
   @include keyframes($name) {
     0% {
-      @include prefix(transform, rotate(0deg) translateZ(0), moz webkit);
+      @include prefix(transform, rotate(0deg) translateZ(0), moz, webkit);
     }
     100% {
-      @include prefix(transform, rotate(360deg), moz webkit);
+      @include prefix(transform, rotate(360deg), moz, webkit);
     }
   }
-  @include prefix(animation, $name $animate, moz webkit);
+  @include prefix(animation, $name $animate, moz, webkit);
 }

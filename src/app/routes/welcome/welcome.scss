@@ -1,0 +1,9 @@
+@import "settings";
+@import "helpers";
+@import "icons";
+
+.route--welcome {
+  @include container;
+
+  padding: app-get(main, padding);
+}

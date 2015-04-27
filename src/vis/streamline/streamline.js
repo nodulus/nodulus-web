@@ -1,22 +1,26 @@
 import {bindable, inject} from 'aurelia-framework';
-import {VisElement} from '../vis';
+import {VisElement} from '../vis-element';
 import d3 from 'd3';
 import nvd3 from 'nvd3';
-import firespray from 'firespray/firespray-0.1.3'
+import firespray from 'firespray/firespray-0.1.3';
 
 @inject(Element)
-export class VisStreamline {
+export class VisStreamline extends VisElement {
   @bindable panel = null;
 
   constructor(element) {
+    super();
+
     this.element = element;
+    this.name = 'I am a streamer';
   }
 
-  render() {
-    var lastEpoch = new Date().getTime();
-    var generatedData = firespray.dataUtils.generateData({epoch: lastEpoch, pointCount: 100, lineCount: 3, valueCount: 2});
+  attached() {
+    console.log('streamline attached', arguments, this);
 
-    this.chart = firespray.chart()
+    var generatedData = firespray.dataUtils.generateData({pointCount: 100, lineCount: 3,
+      valueCount: 2});
+    var chart = firespray.chart()
       .setConfig({
         container: this.element.querySelector('.chart-container'),
         width: 600,
@@ -24,16 +28,17 @@ export class VisStreamline {
         theme: 'default',
         progressiveRenderingRate: 100,
         geometryType: 'stackedBar'
-      });
-
-    setInterval(() => {
-      var newEpoch = lastEpoch + 500;
+      })
+      .setData(generatedData);
+    var lastEpoch = chart.getDataExtent().x[1];
+    setInterval(function() {
+      var newEpoch = lastEpoch + 1000;
       generatedData.forEach(function(d) {
         d.values.shift();
         d.values.push(firespray.dataUtils.generateDataPoint({epoch: newEpoch, valueCount: 2}));
       });
       lastEpoch = newEpoch;
-      this.chart.setData(generatedData);
+      chart.setData(generatedData);
     }, 500);
   }
 }

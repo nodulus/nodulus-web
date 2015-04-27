@@ -1,5 +1,5 @@
 System.register(['aurelia-framework'], function (_export) {
-  var bindable, _classCallCheck, _createDecoratedClass, _defineDecoratedPropertyDescriptor, VisElement;
+  var bindable, _classCallCheck, _createDecoratedClass, _defineDecoratedPropertyDescriptor, Panel;
 
   return {
     setters: [function (_aureliaFramework) {
@@ -14,29 +14,43 @@ System.register(['aurelia-framework'], function (_export) {
 
       _defineDecoratedPropertyDescriptor = function (target, key, descriptors) { var _descriptor = descriptors[key]; var descriptor = {}; for (var _key in _descriptor) descriptor[_key] = _descriptor[_key]; descriptor.value = descriptor.initializer(); Object.defineProperty(target, key, descriptor); };
 
-      VisElement = (function () {
+      Panel = (function () {
         var _instanceInitializers = {};
 
-        function VisElement() {
-          _classCallCheck(this, VisElement);
+        function Panel() {
+          _classCallCheck(this, Panel);
 
-          _defineDecoratedPropertyDescriptor(this, 'panel', _instanceInitializers);
+          _defineDecoratedPropertyDescriptor(this, 'title', _instanceInitializers);
+
+          _defineDecoratedPropertyDescriptor(this, 'position', _instanceInitializers);
+
+          _defineDecoratedPropertyDescriptor(this, 'content', _instanceInitializers);
         }
 
-        _createDecoratedClass(VisElement, [{
-          key: 'panel',
+        _createDecoratedClass(Panel, [{
+          key: 'title',
           decorators: [bindable],
           initializer: function () {
-            return null;
+            return '';
           },
+          enumerable: true
+        }, {
+          key: 'position',
+          decorators: [bindable],
+          initializer: function () {},
+          enumerable: true
+        }, {
+          key: 'content',
+          decorators: [bindable],
+          initializer: function () {},
           enumerable: true
         }], null, _instanceInitializers);
 
-        return VisElement;
+        return Panel;
       })();
 
-      _export('VisElement', VisElement);
+      _export('Panel', Panel);
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInZpcy92aXMtZWxlbWVudC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzRGQUVhLFVBQVU7Ozs7bUNBRmYsUUFBUTs7Ozs7Ozs7Ozs7QUFFSCxnQkFBVTs7O0FBR1YsaUJBSEEsVUFBVSxHQUdQO2dDQUhILFVBQVU7OztTQUtwQjs7OEJBTFUsVUFBVTs7dUJBQ3BCLFFBQVE7O21CQUFTLElBQUk7Ozs7O2VBRFgsVUFBVTs7OzRCQUFWLFVBQVUiLCJmaWxlIjoidmlzL3Zpcy1lbGVtZW50LmpzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvZ3JpZC9wYW5lbC9wYW5lbC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzRGQUVhLEtBQUs7Ozs7bUNBRlYsUUFBUTs7Ozs7Ozs7Ozs7QUFFSCxXQUFLOzs7aUJBQUwsS0FBSztnQ0FBTCxLQUFLOzs7Ozs7Ozs7OEJBQUwsS0FBSzs7dUJBQ2YsUUFBUTs7bUJBQVMsRUFBRTs7Ozs7dUJBQ25CLFFBQVE7Ozs7O3VCQUNSLFFBQVE7Ozs7O2VBSEUsS0FBSzs7O3VCQUFMLEtBQUsiLCJmaWxlIjoiYXBwL3JvdXRlcy9ncmlkL3BhbmVsL3BhbmVsLmpzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9

@@ -15,11 +15,9 @@ System.register(['d3', 'nvd3'], function (_export) {
       Grid = function Grid() {
         _classCallCheck(this, Grid);
 
-        this.heading = 'This is a grid';
-
         this.panels = [{
-          name: 'Streamer',
-          module: '../../vis/streamline/streamline',
+          title: 'Streamer',
+          content: '../../vis/streamline/streamline',
           pos: { x: 0, y: 0, w: 2, h: 1 }
         }];
       };
@@ -28,4 +26,4 @@ System.register(['d3', 'nvd3'], function (_export) {
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvZ3JpZC9ncmlkLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7aUNBR2EsSUFBSTs7Ozs7Ozs7Ozs7OztBQUFKLFVBQUksR0FDSixTQURBLElBQUksR0FDRDs4QkFESCxJQUFJOztBQUViLFlBQUksQ0FBQyxPQUFPLEdBQUcsZ0JBQWdCLENBQUM7O0FBRWhDLFlBQUksQ0FBQyxNQUFNLEdBQUcsQ0FDWjtBQUNFLGNBQUksRUFBRSxVQUFVO0FBQ2hCLGdCQUFNLEVBQUUsaUNBQWlDO0FBQ3pDLGFBQUcsRUFBRSxFQUFDLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUM7U0FDOUIsQ0FDRixDQUFDO09BQ0g7O3NCQVhVLElBQUkiLCJmaWxlIjoiYXBwL3JvdXRlcy9ncmlkL2dyaWQuanMiLCJzb3VyY2VSb290IjoiLy4vc3JjIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvZ3JpZC9ncmlkLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7aUNBR2EsSUFBSTs7Ozs7Ozs7Ozs7OztBQUFKLFVBQUksR0FDSixTQURBLElBQUksR0FDRDs4QkFESCxJQUFJOztBQUViLFlBQUksQ0FBQyxNQUFNLEdBQUcsQ0FDWjtBQUNFLGVBQUssRUFBRSxVQUFVO0FBQ2pCLGlCQUFPLEVBQUUsaUNBQWlDO0FBQzFDLGFBQUcsRUFBRSxFQUFDLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUM7U0FDOUIsQ0FDRixDQUFDO09BQ0g7O3NCQVRVLElBQUkiLCJmaWxlIjoiYXBwL3JvdXRlcy9ncmlkL2dyaWQuanMiLCJzb3VyY2VSb290IjoiLy4vc3JjIn0=

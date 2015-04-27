@@ -1,0 +1,11 @@
+@import "settings";
+@import "helpers";
+@import "icons";
+
+panel {
+  display: block;
+
+  .grid-panel {
+    @include box-sizing(border-box);
+  }
+}

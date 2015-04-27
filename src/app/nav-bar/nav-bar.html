@@ -7,15 +7,15 @@
     </div>
     <div class="nav-block nav-routes">
       <ul class="nav-group routes">
-        <li class="nav-item animated zoomIn" repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+        <li class="nav-item" repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
           <a href.bind="row.href">${row.title}</a>
         </li>
       </ul>
     </div>
     <div class="nav-block nav-indicators">
       <ul class="nav-group indicators">
-        <li class="activity" if.bind="true || router.isNavigating">
-          <i class="icon--spinner spinner animated"></i>
+        <li class="activity" if.bind="router.isNavigating">
+          <i class="icon--spinner spinner"></i>
         </li>
       </ul>
     </div>

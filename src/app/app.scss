@@ -1,6 +1,11 @@
 @import "settings";
 @import "helpers";
 
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 100;
+}
+
 a {
   color: app-color(hyper, off);
   text-decoration: none;
@@ -37,7 +42,7 @@ a {
         @extend %clearfix;
         @include box-sizing(border-box);
 
-        padding-top: 45px;
+        padding-top: 50px;
 
         router-view {
           display: block;

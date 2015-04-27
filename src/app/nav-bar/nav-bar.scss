@@ -5,13 +5,17 @@
 nav-bar {
   nav {
     @include container;
+    @include box-sizing(border-box);
 
     display: block;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(225, 225, 225, 0.75);
+    background-color: rgba(242, 242, 244, 0.85);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+    z-index: 10;
 
     .nav-menu {
       @include span(1 of 12);
@@ -28,7 +32,7 @@ nav-bar {
     .nav-block {
       ul.nav-group {
         display: inline-block;
-        margin: 0.6em;
+        margin: 0.3em;
         margin-left: 0;
         padding: 0;
 
@@ -40,6 +44,7 @@ nav-bar {
           text-shadow: 0 1px rgba(255, 255, 255, 0.45), 0 -1px rgba(0, 0, 0, 0.015);
 
           a {
+            display: inline-block;
             padding: 0.5em;
           }
         }

@@ -6,4 +6,5 @@
   @include container;
 
   padding: app-get(main, padding);
+  padding-top: 0;
 }

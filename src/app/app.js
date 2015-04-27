@@ -1,14 +1,13 @@
 import {inject} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {MQTTEventBridge} from '../io/mqtt-event-bridge';
+import {MQTTEventBridge} from '../io/mqtt/mqtt-event-bridge';
+import {AppConfig} from '../app';
 
-// import ViewStyleCustomElement from '../behaviors/view-style/view-style';
-
-@inject(Router, EventAggregator, MQTTEventBridge)
+@inject(AppConfig, Router, EventAggregator, MQTTEventBridge)
 export class App {
-
-  constructor(router, eventAggregator, mqtt) {
+  constructor(config, router, eventAggregator, mqtt) {
+    this.config = config;
     this.router = router;
     this.eventAggregator = eventAggregator;
     this.mqtt = mqtt;
@@ -22,10 +21,7 @@ export class App {
       ]);
     });
 
-    this.mqtt.configure({
-      uri: 'http://mashtun.homebrew.lan:1884',
-      qos: 1
-    });
+    this.mqtt.configure(this.config.mqtt);
 
     this.eventAggregator.subscribe('mqtt-event-bridge', payload => {
       if (payload == 'connected') {

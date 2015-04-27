@@ -1,11 +1,15 @@
-System.register(['aurelia-event-aggregator', 'bahn-commander/io/mqtt-message'], function (_export) {
-  var EventAggregator, MQTTMessage, _classCallCheck, _createClass, Welcome, UpperValueConverter;
+System.register(['aurelia-framework', 'aurelia-event-aggregator', '../../entities/message', '../../../io/mqtt/mqtt-message'], function (_export) {
+  var inject, EventAggregator, Message, MQTTMessage, _classCallCheck, _createClass, Welcome, UpperValueConverter;
 
   return {
-    setters: [function (_aureliaEventAggregator) {
+    setters: [function (_aureliaFramework) {
+      inject = _aureliaFramework.inject;
+    }, function (_aureliaEventAggregator) {
       EventAggregator = _aureliaEventAggregator.EventAggregator;
-    }, function (_bahnCommanderIoMqttMessage) {
-      MQTTMessage = _bahnCommanderIoMqttMessage.MQTTMessage;
+    }, function (_entitiesMessage) {
+      Message = _entitiesMessage.Message;
+    }, function (_ioMqttMqttMessage) {
+      MQTTMessage = _ioMqttMqttMessage.MQTTMessage;
     }],
     execute: function () {
       'use strict';
@@ -15,8 +19,8 @@ System.register(['aurelia-event-aggregator', 'bahn-commander/io/mqtt-message'], 
       _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
       Welcome = (function () {
-        function Welcome(eventAggregator) {
-          _classCallCheck(this, Welcome);
+        function Welcome(eventAggregator, message) {
+          _classCallCheck(this, _Welcome);
 
           this.eventAggregator = eventAggregator;
 
@@ -25,7 +29,9 @@ System.register(['aurelia-event-aggregator', 'bahn-commander/io/mqtt-message'], 
           this.lastName = 'Doe';
         }
 
-        _createClass(Welcome, [{
+        var _Welcome = Welcome;
+
+        _createClass(_Welcome, [{
           key: 'fullName',
           get: function () {
             return '' + this.firstName + ' ' + this.lastName;
@@ -33,17 +39,12 @@ System.register(['aurelia-event-aggregator', 'bahn-commander/io/mqtt-message'], 
         }, {
           key: 'welcome',
           value: function welcome() {
-            console.log(this.eventAggregator);
             var message = new MQTTMessage('welcome', this.fullName);
             this.eventAggregator.publish(message);
           }
-        }], [{
-          key: 'inject',
-          value: function inject() {
-            return [EventAggregator];
-          }
         }]);
 
+        Welcome = inject(EventAggregator, Message)(Welcome) || Welcome;
         return Welcome;
       })();
 
@@ -68,4 +69,4 @@ System.register(['aurelia-event-aggregator', 'bahn-commander/io/mqtt-message'], 
     }
   };
 });
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvd2VsY29tZS93ZWxjb21lLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7bUVBR2EsT0FBTyxFQXNCUCxtQkFBbUI7Ozs7Z0RBekJ4QixlQUFlOztnREFDZixXQUFXOzs7Ozs7Ozs7QUFFTixhQUFPO0FBR1AsaUJBSEEsT0FBTyxDQUdOLGVBQWUsRUFBRTtnQ0FIbEIsT0FBTzs7QUFJaEIsY0FBSSxDQUFDLGVBQWUsR0FBRyxlQUFlLENBQUM7O0FBRXZDLGNBQUksQ0FBQyxPQUFPLEdBQUcsK0NBQStDLENBQUM7QUFDL0QsY0FBSSxDQUFDLFNBQVMsR0FBRyxNQUFNLENBQUM7QUFDeEIsY0FBSSxDQUFDLFFBQVEsR0FBRyxLQUFLLENBQUM7U0FDdkI7O3FCQVRVLE9BQU87O2VBV04sWUFBRztBQUNiLHdCQUFVLElBQUksQ0FBQyxTQUFTLFNBQUksSUFBSSxDQUFDLFFBQVEsQ0FBRztXQUM3Qzs7O2lCQUVNLG1CQUFHO0FBQ1IsbUJBQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLGVBQWUsQ0FBQyxDQUFDO0FBQ2xDLGdCQUFJLE9BQU8sR0FBRyxJQUFJLFdBQVcsQ0FBQyxTQUFTLEVBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQ3hELGdCQUFJLENBQUMsZUFBZSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsQ0FBQztXQUN2Qzs7O2lCQWxCWSxrQkFBRTtBQUFFLG1CQUFPLENBQUMsZUFBZSxDQUFDLENBQUM7V0FBRTs7O2VBRGpDLE9BQU87Ozt5QkFBUCxPQUFPOztBQXNCUCx5QkFBbUI7aUJBQW5CLG1CQUFtQjtnQ0FBbkIsbUJBQW1COzs7cUJBQW5CLG1CQUFtQjs7aUJBQ3hCLGdCQUFDLEtBQUssRUFBQztBQUNYLG1CQUFPLEtBQUssSUFBSSxLQUFLLENBQUMsV0FBVyxFQUFFLENBQUM7V0FDckM7OztlQUhVLG1CQUFtQjs7O3FDQUFuQixtQkFBbUIiLCJmaWxlIjoiYXBwL3JvdXRlcy93ZWxjb21lL3dlbGNvbWUuanMiLCJzb3VyY2VSb290IjoiLy4vc3JjIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yb3V0ZXMvd2VsY29tZS93ZWxjb21lLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7b0ZBTWEsT0FBTyxFQW9CUCxtQkFBbUI7Ozs7aUNBMUJ4QixNQUFNOztnREFDTixlQUFlOztpQ0FDZixPQUFPOzt1Q0FDUCxXQUFXOzs7Ozs7Ozs7QUFHTixhQUFPO0FBQ1AsaUJBREEsT0FBTyxDQUNOLGVBQWUsRUFBRSxPQUFPLEVBQUU7OztBQUNwQyxjQUFJLENBQUMsZUFBZSxHQUFHLGVBQWUsQ0FBQzs7QUFFdkMsY0FBSSxDQUFDLE9BQU8sR0FBRywrQ0FBK0MsQ0FBQztBQUMvRCxjQUFJLENBQUMsU0FBUyxHQUFHLE1BQU0sQ0FBQztBQUN4QixjQUFJLENBQUMsUUFBUSxHQUFHLEtBQUssQ0FBQztTQUN2Qjs7dUJBUFUsT0FBTzs7OztlQVNOLFlBQUc7QUFDYix3QkFBVSxJQUFJLENBQUMsU0FBUyxTQUFJLElBQUksQ0FBQyxRQUFRLENBQUc7V0FDN0M7OztpQkFFTSxtQkFBRztBQUNSLGdCQUFJLE9BQU8sR0FBRyxJQUFJLFdBQVcsQ0FBQyxTQUFTLEVBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0FBQ3hELGdCQUFJLENBQUMsZUFBZSxDQUFDLE9BQU8sQ0FBQyxPQUFPLENBQUMsQ0FBQztXQUV2Qzs7O0FBakJVLGVBQU8sR0FEbkIsTUFBTSxDQUFDLGVBQWUsRUFBRSxPQUFPLENBQUMsQ0FDcEIsT0FBTyxLQUFQLE9BQU87ZUFBUCxPQUFPOzs7eUJBQVAsT0FBTzs7QUFvQlAseUJBQW1CO2lCQUFuQixtQkFBbUI7Z0NBQW5CLG1CQUFtQjs7O3FCQUFuQixtQkFBbUI7O2lCQUN4QixnQkFBQyxLQUFLLEVBQUM7QUFDWCxtQkFBTyxLQUFLLElBQUksS0FBSyxDQUFDLFdBQVcsRUFBRSxDQUFDO1dBQ3JDOzs7ZUFIVSxtQkFBbUI7OztxQ0FBbkIsbUJBQW1CIiwiZmlsZSI6ImFwcC9yb3V0ZXMvd2VsY29tZS93ZWxjb21lLmpzIiwic291cmNlUm9vdCI6Ii8uL3NyYyJ9

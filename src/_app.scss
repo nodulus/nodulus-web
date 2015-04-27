@@ -38,3 +38,10 @@
 
   @return app-get( $nargs... );
 }
+
+
+@mixin line-height($height: 12) {
+  $base-font-size: app-get(typo, base-font-size);
+  line-height: $height * 1px; // fallback
+  line-height: (1 / ($base-font-size / ($base-font-size * 0 + 1)) * $height * 1rem);
+}

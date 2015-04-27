@@ -2,8 +2,6 @@ var path = require('path'),
     root = '.',
     base = path.resolve(root);
 
-console.log('base', base);
-
 // Project paths
 // -------------
 

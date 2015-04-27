@@ -1,10 +1,11 @@
+import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
-import {MQTTMessage} from 'bahn-commander/io/mqtt-message';
+import {Message} from '../../entities/message';
+import {MQTTMessage} from '../../../io/mqtt/mqtt-message';
 
+@inject(EventAggregator, Message)
 export class Welcome {
-  static inject(){ return [EventAggregator]; }
-
-  constructor(eventAggregator) {
+  constructor(eventAggregator, message) {
     this.eventAggregator = eventAggregator;
 
     this.heading = 'Welcome to the Bahn Commander Navigation App!';
@@ -17,9 +18,9 @@ export class Welcome {
   }
 
   welcome() {
-    console.log(this.eventAggregator);
     var message = new MQTTMessage('welcome', this.fullName);
     this.eventAggregator.publish(message);
+    // this.message.create(message);
   }
 }
 

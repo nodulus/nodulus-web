@@ -1,5 +1,22 @@
 console.log('Bahn Commander is GO!');
 
+export class AppConfig {
+  constructor() {
+    this.entities = {
+      uri: 'http://localhost:3000'
+    }
+
+    this.rethinkdb = {
+      uri: 'ws://localhost:28015/bahn_commander'
+    }
+
+    this.mqtt = {
+      uri: 'ws://mashtun.homebrew.lan:1884',
+      qos: 1
+    }
+  }
+};
+
 export function configure (aurelia) {
   console.log('configure app', aurelia);
 

@@ -1,7 +1,8 @@
+@import "./helpers";
+
 $ionicons-font-path: app-get($icons, font-path);
 $ionicons-font-family: app-get($icons, font-family);
 $ionicons-version: app-get($icons, version);
-
 
 @font-face {
  font-family: $ionicons-font-family;
@@ -68,16 +69,6 @@ $ionicons-version: app-get($icons, version);
 
 @mixin icon-spin() {
   &:before {
-    animation: icon-spinner-1 1s infinite linear;
-  }
-}
-
-@keyframes icon-spinner-1 {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
+    @include spin();
   }
 }

@@ -1,7 +1,10 @@
 System.config({
   "transpiler": "babel",
   "babelOptions": {
-    "optional": []
+    "optional": [
+      "es7.decorators",
+      "es7.classProperties"
+    ]
   },
   "paths": {
     "*": "*.js",
@@ -18,6 +21,14 @@ System.config({
 });
 
 System.config({
+  "meta": {
+    "jspm_packages/6to5-polyfill": {
+      "format": "global"
+    }
+  }
+});
+
+System.config({
   "map": {
     "EventDrops": "github:marmelab/EventDrops@0.1.1",
     "animate-sass": "github:tgdev/animate-sass@0.6.3",
@@ -30,6 +41,7 @@ System.config({
     "aurelia-templating": "github:aurelia/templating@0.10.3",
     "babel": "npm:babel-core@5.1.13",
     "babel-runtime": "npm:babel-runtime@5.1.13",
+    "biovisualize/render-slicer": "github:biovisualize/render-slicer@master",
     "breakpoint": "github:at-import/breakpoint@2.5.0",
     "core-js": "npm:core-js@0.8.4",
     "crossfilter": "github:square/crossfilter@1.3.11",
@@ -45,7 +57,9 @@ System.config({
     "md": "github:guybedford/system-md@0.0.1",
     "normalize.css": "github:necolas/normalize.css@3.0.3",
     "nvd3": "github:novus/nvd3@1.7.1",
-    "paho": "io/mqttws31",
+    "owl-stars/cssowl": "github:owl-stars/cssowl@1.3.1",
+    "paho": "lib/mqttws31",
+    "rethinkdb": "npm:rethinkdb@2.0.0",
     "rxjs": "github:reactive-extensions/rxjs@2.5.2",
     "sass-css3-mixins": "github:matthieua/sass-css3-mixins@master",
     "susy": "github:ericam/susy@2.2.2",
@@ -292,6 +306,10 @@ System.config({
       "url": "github:jspm/nodelibs-url@0.1.0"
     },
     "npm:beeper@1.0.0": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:bluebird@2.9.24": {
+      "events": "github:jspm/nodelibs-events@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:boom@0.4.2": {
@@ -1010,6 +1028,13 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1",
       "systemjs-json": "github:systemjs/plugin-json@0.1.0"
+    },
+    "npm:rethinkdb@2.0.0": {
+      "bluebird": "npm:bluebird@2.9.24",
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "events": "github:jspm/nodelibs-events@0.1.0",
+      "net": "github:jspm/nodelibs-net@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:ripemd160@1.0.0": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",

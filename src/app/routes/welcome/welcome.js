@@ -11,8 +11,8 @@ export class Welcome {
     this.message = message;
 
     this.heading = 'Welcome to the Bahn Commander Navigation App!';
-    this.firstName = 'John';
-    this.lastName = 'Doe';
+    this.firstName = 'Bob';
+    this.lastName = 'Dylan';
   }
 
   get fullName() {
@@ -27,7 +27,7 @@ export class Welcome {
 }
 
 export class UpperValueConverter {
-  toView(value){
+  toView(value) {
     return value && value.toUpperCase();
   }
 }

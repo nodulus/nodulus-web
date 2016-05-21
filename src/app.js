@@ -1,5 +1,11 @@
 console.log('Bahn Commander is GO!');
 
+import {LogManager} from 'aurelia-framework';
+import {ConsoleAppender} from 'aurelia-logging-console';
+
+LogManager.addAppender(new ConsoleAppender());
+LogManager.setLevel(LogManager.logLevel.debug);
+
 export class AppConfig {
   constructor() {
     this.entities = {
@@ -19,15 +25,19 @@ export class AppConfig {
 
 export function configure (aurelia) {
   console.log('configure app', aurelia);
+  
+  aurelia.use
+    .defaultBindingLanguage()
+    .defaultResources()
+    .history()
+    .router()
+    .eventAggregator();
 
   if (true) {
     aurelia.use.developmentLogging();
   }
 
-  aurelia.use.standardConfiguration();
-  // aurelia.use.es5();
-
   return aurelia.start().then(function (a) {
-    return a.setRoot('app/app', 'page-host');
+    return a.setRoot('app/app', document.getElementById('page-host'));
   });
 }

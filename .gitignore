@@ -1,4 +1,6 @@
 node_modules
 jspm_packages
+rethinkdb_data
+dist
 .idea
 .DS_STORE

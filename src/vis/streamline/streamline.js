@@ -26,7 +26,7 @@ export class VisStreamline extends VisElement {
         width: 600,
         height: 400,
         theme: 'default',
-        progressiveRenderingRate: 100,
+        progressiveRenderingRate: 50,
         geometryType: 'stackedBar'
       })
       .setData(generatedData);
@@ -39,6 +39,6 @@ export class VisStreamline extends VisElement {
       });
       lastEpoch = newEpoch;
       chart.setData(generatedData);
-    }, 500);
+    }, 50);
   }
 }

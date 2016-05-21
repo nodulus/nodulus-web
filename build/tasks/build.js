@@ -1,11 +1,11 @@
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
+var jspm = require('gulp-jspm-build')
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
-var to5 = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var symlink = require('gulp-symlink');
+var runSequence = require('run-sequence');
 var assign = Object.assign || require('object.assign');
 var config = require('../config');
 var compilerOptions = config.opts.to5;
@@ -18,9 +18,21 @@ gulp.task('build-system', function () {
     .pipe(plumber())
     .pipe(changed(config.paths.dest, {extension: '.js'}))
     .pipe(sourcemaps.init())
-    .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
+    // .pipe(jspm({
+    //     bundles: [
+    //         { src: 'app', dst: 'app.js' }
+    //     ]
+    // }))
     .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
     .pipe(gulp.dest(config.paths.dest));
+
+  // return gulp.src(config.paths.scripts)
+  //   .pipe(plumber())
+  //   .pipe(changed(config.paths.dest, {extension: '.js'}))
+  //   .pipe(sourcemaps.init())
+  //   .pipe(to5(assign({}, compilerOptions)))
+  //   .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
+  //   .pipe(gulp.dest(config.paths.dest));
 });
 
 // copy changed html files to the output directory

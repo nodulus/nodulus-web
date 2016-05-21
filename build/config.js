@@ -29,13 +29,12 @@ exports.opts.to5 = {
   comments: false,
   compact: false,
   sourceMap: true,
-  sourceMapName: '',
+  sourceMapTarget: '',
   moduleIds: false,
-  stage: 2,
-  modules: 'system',
-  optional: [
-    "es7.decorators",
-    "es7.classProperties"
+  presets: ["stage-3"],
+  plugins: [
+    "transform-decorators",
+    "transform-class-properties"
   ]
 };
 

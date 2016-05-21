@@ -16,7 +16,7 @@ export class App {
       config.title = 'Bahn Commander';
       config.options.pushState = true;
       // Add auth route filter
-      config.addPipelineStep('authorize', AuthorizeStep);
+      // config.addPipelineStep('authorize', AuthorizeStep);
       config.map([
         { route: ['welcome'],    moduleId: 'app/routes/welcome/welcome',      nav: true,             title: 'Welcome' },
         { route: 'grid',         moduleId: 'app/routes/grid/grid',            nav: true,             title: 'Grid' },

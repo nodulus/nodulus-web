@@ -38,7 +38,7 @@ body {
   }
 
   .spinner {
-    @extend icon-spin();
+    @extend icon-spin() !optional;
     @include spin();
     
     margin: 6em auto;

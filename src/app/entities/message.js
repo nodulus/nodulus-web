@@ -1,5 +1,5 @@
 import {transient, inject} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-http-client';
+import {HttpClient} from 'aurelia-fetch-client';
 import {AppConfig} from '../../app';
 
 @transient()
@@ -12,28 +12,38 @@ export class Message {
 
     this.name = 'message';
 
-    http.configure(x => {
-      x.withBaseUri(this.config.uri + '/' + this.name);
+    http.configure(config => {
+      config
+        .useStandardConfiguration()
+        .withBaseUrl(this.config.uri + '/' + this.name);
     });
   }
 
   list() {
-    return this.http.get();
+    return this.http.fetch();
   }
 
   get(id) {
-    return this.http.get('/' + id);
+    return this.http.fetch('/' + id);
   }
 
   create(message) {
-    return this.http.post('', message);
+    return this.http.fetch('', {
+      method: 'post',
+      body: message
+    });
   }
 
   update(message) {
-    return this.http.put('/' + message.id, message);
+    return this.http.fetch('/' + message.id, {
+      method: 'put',
+      body: message
+    });
   }
 
   destroy(id) {
-   return this.http.delete('/' + id); 
+    return this.http.fetch('/' + id, {
+      method: 'delete'
+    }); 
   }
 }

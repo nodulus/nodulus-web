@@ -13,7 +13,7 @@ export class App {
     this.mqtt = mqtt;
 
     this.router.configure(config => {
-      config.title = 'Bahn Commander';
+      config.title = 'Nodul.us';
       config.options.pushState = true;
       // Add auth route filter
       // config.addPipelineStep('authorize', AuthorizeStep);

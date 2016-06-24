@@ -1,7 +1,8 @@
 node_modules
 jspm_packages
-rethinkdb_data
+rethinkdb_data/
 build/
 dist/
 .idea
 .DS_STORE
+npm-debug.log

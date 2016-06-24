@@ -3,8 +3,6 @@
 @import "icons";
 
 .route--welcome {
-  @include container;
-
   padding: app-get(main, padding);
   padding-top: 0;
 }

@@ -1,22 +1,28 @@
 <template>
   <link rel="stylesheet" type="text/css" href="app/routes/welcome/welcome.css"/>
+
   <section class="route route--welcome">
     <h2>${heading}</h2>
 
-    <form role="form" submit.delegate="welcome()">
+    <div class="well">
+      <p>To configure the client, edit the `mqtt` settings in <code>src/app.js</code>.</p>
+      <p>Make sure you have the js console open, everything is <code>console.log</code> for now.</p>
+    </div>
+
+    <form class="form" role="form" submit.delegate="welcome()">
       <div class="form-group">
-        <label for="fn">First Name</label>
+        <label for="fn">First Name:</label>
         <input type="text" value.bind="firstName" class="form-control" id="fn" placeholder="first name">
       </div>
       <div class="form-group">
-        <label for="ln">Last Name</label>
+        <label for="ln">Last Name:</label>
         <input type="text" value.bind="lastName" class="form-control" id="ln" placeholder="last name">
       </div>
       <div class="form-group">
-        <label>Full Name</label>
-        <p class="help-block">${fullName | upper}</p>
+        <label>Generated:</label>
+        <span>${fullName}</span>
       </div>
-      <button type="submit" class="btn--submit">Submit</button>
+      <button type="submit" class="btn--submit">Publish</button>
     </form>
   </section>
 </template>

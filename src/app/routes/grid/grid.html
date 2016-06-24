@@ -1,11 +1,18 @@
 <template>
   <link rel="stylesheet" type="text/css" href="app/routes/grid/grid.css"/>
+  
   <section class="route route--grid">
     <require from="./panel/panel"></require>
     <require from="../../../vis/streamline/streamline"></require>
 
+    <h2>${heading}</h2>
+
+    <div class="well">
+      <p>Don't get excited, the data is fake.</p>
+    </div>
+
     <div class="grid">
-      <panel content="panel.content" repeat.for="panel of panels">
+      <panel class="grid-panel" content="panel.content" repeat.for="panel of panels">
         <div class="panel-title">${panel.title}</div>
         <vis-streamline class="panel-body" panel.bind="panel"></vis-streamline>
       </panel>

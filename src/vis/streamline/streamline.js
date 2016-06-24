@@ -12,19 +12,20 @@ export class VisStreamline extends VisElement {
     super();
 
     this.element = element;
-    this.name = 'I am a streamer';
+    this.name = 'I am a streaming visualization of data';
   }
 
   attached() {
-    console.log('streamline attached', arguments, this);
+    console.log('streamline vis attached', arguments, this);
 
+    // FIXME: Lifted from firespray example, it's all a lie!
     var generatedData = firespray.dataUtils.generateData({pointCount: 100, lineCount: 3,
       valueCount: 2});
     var chart = firespray.chart()
       .setConfig({
         container: this.element.querySelector('.chart-container'),
-        width: 600,
-        height: 400,
+        width: 400,
+        height: 240,
         theme: 'default',
         progressiveRenderingRate: 50,
         geometryType: 'stackedBar'

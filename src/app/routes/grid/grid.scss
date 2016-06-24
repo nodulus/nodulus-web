@@ -1,7 +1,23 @@
 @import "settings";
 @import "helpers";
-@import "icons";
+
+@import "../../../vis/vis";
+
+$grid: layout(auto 12 .25 inside fluid isolate);
 
 .route--grid {
+  padding: app-get(main, padding);
+  padding-top: 0;
 
+  .grid {
+    @include layout($grid);
+
+    panel {
+      @include span(1 of 6);
+
+      display: block;
+      padding: 1em;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+  }
 }

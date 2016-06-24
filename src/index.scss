@@ -1,8 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
 @import "./settings";
 @import "./helpers";
 @import "./icons";
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+@import "./typo";
+@import "./forms";
+@import "./holdup";
+
+@include border-box-sizing;
 
 // Index
 // =====
@@ -21,41 +27,6 @@ body {
   padding: 0;
   // Addresses issue in webkit: http://bit.ly/NEdoDq
   @include prefix(backface-visibility, hidden, 'webkit');
-}
-
-.hold-up {
-  @include span(12 of 12);
-
-  text-align: center;
-  margin: 10% 0 0 0;
-  box-sizing: border-box;
-
-  .message {
-    color: #333;
-    font-size: 72px;
-    line-height: 72px;
-    text-shadow: rgba(0, 0, 0, 0.25) 0 0 15px;
-  }
-
-  .spinner {
-    @extend icon-spin() !optional;
-    @include spin();
-    
-    margin: 6em auto;
-    font-size: 10px;
-    position: relative;
-    text-indent: -9999em;
-    border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-right: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-    border-left: 1.1em solid #ffffff;
-
-    &, &:after {
-      border-radius: 50%;
-      width: 10em;
-      height: 10em;
-    }
-  }
 }
 
 

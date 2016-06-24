@@ -10,7 +10,8 @@ export class Welcome {
     this.eventAggregator = eventAggregator;
     this.message = message;
 
-    this.heading = 'Welcome to the Bahn Commander Navigation App!';
+    this.heading = 'Stupid MQTT event bridge test';
+    
     this.firstName = 'Bob';
     this.lastName = 'Dylan';
   }

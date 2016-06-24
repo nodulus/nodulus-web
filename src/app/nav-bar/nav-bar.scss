@@ -2,67 +2,63 @@
 @import "helpers";
 @import "icons";
 
-nav-bar {
-  nav {
-    @include container;
-    @include box-sizing(border-box);
+nav.nav-bar {
+  @include container;
 
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(242, 242, 244, 0.85);
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    border-bottom: 1px solid rgba(100, 100, 100, 0.1);
-    z-index: 10;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(242, 242, 244, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+  z-index: 10;
 
-    .nav-menu {
-      @include span(1 of 12);
+  .nav-menu {
+    @include span(1 of 12);
 
-      .menu-toggle {
-        @include icon-button(1.35em);
-        @include icon-clickable();
+    .menu-toggle {
+      @include icon-button(1.35em);
+      @include icon-clickable();
 
-        margin: 0.4em;
-        line-height: 0.95;
+      margin: 0.4em;
+      line-height: 0.95;
+    }
+  }
+
+  .nav-block {
+    ul.nav-group {
+      display: inline-block;
+      margin: 0.3em;
+      margin-left: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+        padding: 0;
+        list-style: none;
+        vertical-align: middle;
+        text-shadow: 0 1px rgba(255, 255, 255, 0.45), 0 -1px rgba(0, 0, 0, 0.015);
+
+        a {
+          display: inline-block;
+          padding: 0.5em;
+        }
       }
     }
 
-    .nav-block {
-      ul.nav-group {
-        display: inline-block;
-        margin: 0.3em;
-        margin-left: 0;
-        padding: 0;
+    &.nav-routes {
+      @include span(10 of 12 at 1);
+    }
 
-        li {
-          display: inline-block;
-          padding: 0;
-          list-style: none;
-          vertical-align: middle;
-          text-shadow: 0 1px rgba(255, 255, 255, 0.45), 0 -1px rgba(0, 0, 0, 0.015);
+    &.nav-indicators {
+      @include span(1 of 12 at 11);
 
-          a {
-            display: inline-block;
-            padding: 0.5em;
-          }
-        }
-      }
+      text-align: right;
 
-
-      &.nav-routes {
-        @include span(10 of 12 at 1);
-      }
-
-      &.nav-indicators {
-        @include span(1 of 12 at 11);
-
-        text-align: right;
-
-        .spinner {
-          @include spin();
-        }
+      .spinner {
+        @include spin();
       }
     }
   }

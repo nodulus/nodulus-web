@@ -1,7 +1,6 @@
 @import "settings";
 @import "helpers";
 
-
 h1, h2, h3, h4, h5, h6 {
   font-weight: 100;
 }
@@ -38,16 +37,21 @@ a {
     }
     
     .main {
+      nav-bar {
+
+      }
+      
       .page-host {
-        @extend %clearfix;
         @include box-sizing(border-box);
 
         padding-top: 50px;
 
         router-view {
+          @extend %clearfix;
           display: block;
 
           .route {
+            @include container;
           }
         }
       }

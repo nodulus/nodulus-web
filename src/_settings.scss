@@ -11,14 +11,15 @@
 $susy: (
   output: isolate,
   columns: 12,
-  gutters: (1/4),
+  gutters: .25,
+  global-box-sizing: border-box,
   use-custom: (
     breakpoint: true
   )
 );
 
 // mixin: set a global layout
-// @include layout(12 1/4 inside-static);
+// @include layout(12 .25 inside-static);
 
 $app: (
   colors: (

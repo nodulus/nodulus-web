@@ -3,6 +3,8 @@ import nvd3 from 'nvd3';
 
 export class Grid {
   constructor() {
+    this.heading = 'Streaming event data';
+
     this.panels = [
       {
         title: 'Streamer',

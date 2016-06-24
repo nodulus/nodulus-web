@@ -8,7 +8,8 @@ var path = require('path'),
 exports.paths = {
   base: base,
   root: root,
-  dest: root + '/dist',
+  build: root + '/build',
+  dist: root + '/dist',
   docs: root + '/docs',
 
   src: root + '/src',

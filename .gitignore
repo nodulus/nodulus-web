@@ -1,6 +1,7 @@
 node_modules
 jspm_packages
 rethinkdb_data
-dist
+build/
+dist/
 .idea
 .DS_STORE

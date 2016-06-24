@@ -15,7 +15,7 @@ var config = module.exports = {
     host: "localhost",
     port: 28015,
     authKey: "",
-    db: "bahn_commander"
+    db: "nodulus_web"
   },
   koa: {
     port: 3000

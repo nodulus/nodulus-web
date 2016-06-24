@@ -16,56 +16,42 @@ var compilerOptions = config.opts.to5;
 gulp.task('build-system', function () {
   return gulp.src(config.paths.scripts)
     .pipe(plumber())
-    .pipe(changed(config.paths.dest, {extension: '.js'}))
+    .pipe(changed(config.paths.build, {extension: '.js'}))
     .pipe(sourcemaps.init())
-    // .pipe(jspm({
-    //     bundles: [
-    //         { src: 'app', dst: 'app.js' }
-    //     ]
-    // }))
     .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
-    .pipe(gulp.dest(config.paths.dest));
-
-  // return gulp.src(config.paths.scripts)
-  //   .pipe(plumber())
-  //   .pipe(changed(config.paths.dest, {extension: '.js'}))
-  //   .pipe(sourcemaps.init())
-  //   .pipe(to5(assign({}, compilerOptions)))
-  //   .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
-  //   .pipe(gulp.dest(config.paths.dest));
+    .pipe(gulp.dest(config.paths.build));
 });
 
 // copy changed html files to the output directory
 gulp.task('build-templates', function () {
   return gulp.src(config.paths.templates)
-    .pipe(changed(config.paths.dest, {extension: '.html'}))
-    .pipe(gulp.dest(config.paths.dest));
+    .pipe(changed(config.paths.build, {extension: '.html'}))
+    .pipe(gulp.dest(config.paths.build));
 });
 
 // compile sass into output directory
 gulp.task('build-styles', function () {
   return gulp.src(config.paths.styles)
-    .pipe(changed(config.paths.dest, {extension: '.css'}))
+    .pipe(changed(config.paths.build, {extension: '.css'}))
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: [config.paths.src].concat(config.paths.modules),
       errLogToConsole: true
     }))
     .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/' + config.paths.src }))
-    .pipe(gulp.dest(config.paths.dest));
+    .pipe(gulp.dest(config.paths.build));
 });
 
 // copy config to the output directory
 gulp.task('build-config', function () {
   return gulp.src(config.paths.root + '/config.js')
-    .pipe(changed(config.paths.dest, {extension: '.js'}))
-    .pipe(gulp.dest(config.paths.dest));
+    .pipe(changed(config.paths.build, {extension: '.js'}))
+    .pipe(gulp.dest(config.paths.build));
 });
 
 gulp.task('link-modules', function() {
   return gulp.src(config.paths.modules)
-    // .pipe(symlink(config.paths.dest))
-    .pipe(symlink([ config.paths.dest + '/node_modules', config.paths.dest + '/jspm_packages' ]));
+    .pipe(symlink([ `${config.paths.build}/node_modules`, `${config.paths.build}/jspm_packages` ]));
 });
 
 // clean, then build system + templates

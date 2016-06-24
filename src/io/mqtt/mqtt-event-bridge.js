@@ -204,7 +204,7 @@ export class MQTTEventBridge {
     // Send connected event to the app
     this.eventAggregator.publish('mqtt-event-bridge', 'connected');
     // Send connected message up to mqtt
-    this.publish(new MQTTMessage('/broadcast/client/' + this.clientID, 'connect'));
+    this.publish(new MQTTMessage(`/broadcast/client/${this.clientID}`, 'connect'));
   }
 
   onError() {
@@ -251,7 +251,7 @@ export class MQTTEventBridge {
     // }
 
     // publish to app
-    this.eventAggregator.publish(new MQTTMessage(message, topic, 'inbound'));
+    this.eventAggregator.publish(new MQTTMessage(topic, message, 'inbound'));
   }
 
   // app -> mqtt

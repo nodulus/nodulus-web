@@ -1,5 +1,3 @@
-console.log('Bahn Commander is GO!');
-
 import {LogManager} from 'aurelia-framework';
 import {ConsoleAppender} from 'aurelia-logging-console';
 
@@ -13,7 +11,7 @@ export class AppConfig {
     }
 
     this.rethinkdb = {
-      uri: 'ws://localhost:28015/bahn_commander'
+      uri: 'ws://localhost:28015/nodulus_web'
     }
 
     this.mqtt = {
